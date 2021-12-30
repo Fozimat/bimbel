@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\MapelController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('/', HomeController::class);
+    Route::resource('mapel', MapelController::class);
 });
 
 Auth::routes();
