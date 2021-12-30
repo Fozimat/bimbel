@@ -9,4 +9,5 @@ class Tingkat extends Model
 {
     use HasFactory;
     protected $table = 'tingkat';
+    protected $fillable = ['tingkat'];
 }
