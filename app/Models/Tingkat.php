@@ -10,4 +10,9 @@ class Tingkat extends Model
     use HasFactory;
     protected $table = 'tingkat';
     protected $fillable = ['tingkat'];
+
+    public function materi()
+    {
+        return $this->hasMany(Materi::class, 'id_mapel', 'id');
+    }
 }

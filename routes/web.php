@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\MapelController;
+use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\TingkatController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::resource('/', HomeController::class);
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('mapel', MapelController::class);
     Route::resource('tingkat', TingkatController::class);
+    Route::resource('materi', MateriController::class);
 });
 
 Auth::routes();
