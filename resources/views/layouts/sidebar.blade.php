@@ -32,8 +32,8 @@
                 <span>Data Materi</span>
             </a>
         </li>
-        <li>
-            <a href="pages/helper-classes.html">
+        <li class="{{ request()->is('admin/tugas*') ? 'active': '' }}">
+            <a href="{{ route('tugas.index') }}">
                 <i class="material-icons">assignment_ind</i>
                 <span>Data Tugas</span>
             </a>

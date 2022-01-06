@@ -15,4 +15,9 @@ class Mapel extends Model
     {
         return $this->hasMany(Materi::class, 'id_mapel', 'id');
     }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class, 'id_mapel', 'id');
+    }
 }

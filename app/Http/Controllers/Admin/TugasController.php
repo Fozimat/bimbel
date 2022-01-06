@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Mapel;
-use App\Models\Materi;
+use App\Models\Tugas;
 use App\Models\Tingkat;
+use App\Http\Requests\TugasRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MateriRequest;
 use Illuminate\Support\Facades\File;
 
-class MateriController extends Controller
+class TugasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::with('mapel', 'tingkat')->get();
-        return view('materi.index', compact(['materi']));
+        $tugas = Tugas::with('mapel', 'tingkat')->get();
+        return view('tugas.index', compact(['tugas']));
     }
 
     /**
@@ -31,7 +31,7 @@ class MateriController extends Controller
     {
         $mapel = Mapel::all();
         $tingkat = Tingkat::all();
-        return view('materi.create', compact(['mapel', 'tingkat']));
+        return view('tugas.create', compact(['mapel', 'tingkat']));
     }
 
     /**
@@ -40,20 +40,21 @@ class MateriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MateriRequest $request)
+    public function store(TugasRequest $request)
     {
-        $materi = $request->file('materi');
-        $nama_materi = time() . '-' . $request->judul . '.' . $materi->getClientOriginalExtension();
-        $materi->move(public_path('materi'), $nama_materi);
+        $tugas = $request->file('tugas');
+        $nama_tugas = time() . '-' . $request->judul . '.' . $tugas->getClientOriginalExtension();
+        $tugas->move(public_path('tugas'), $nama_tugas);
         $data = [
             'id_mapel' => $request->id_mapel,
             'id_tingkat' => $request->id_tingkat,
             'judul' => $request->judul,
-            'materi' => $nama_materi,
+            'tugas' => $nama_tugas,
+            'batas_pengantaran' => $request->batas_pengantaran,
             'keterangan' => $request->keterangan
         ];
-        Materi::create($data);
-        return redirect()->route('materi.index')->with('flash', 'Materi Berhasil Ditambahkan');
+        Tugas::create($data);
+        return redirect()->route('tugas.index')->with('flash', 'Tugas Berhasil Ditambahkan');
     }
 
     /**
@@ -77,9 +78,9 @@ class MateriController extends Controller
     {
         $mapel = Mapel::all();
         $tingkat = Tingkat::all();
-        $materi = Materi::findOrFail($id);
+        $tugas = Tugas::findOrFail($id);
 
-        return view('materi.edit', compact(['mapel', 'tingkat', 'materi']));
+        return view('tugas.edit', compact(['mapel', 'tingkat', 'tugas']));
     }
 
     /**
@@ -89,28 +90,29 @@ class MateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MateriRequest $request, Materi $materi)
+    public function update(TugasRequest $request, Tugas $tugas)
     {
         $data = [
             'id_mapel' => $request->id_mapel,
             'id_tingkat' => $request->id_tingkat,
             'judul' => $request->judul,
+            'batas_pengantaran' => $request->batas_pengantaran,
             'keterangan' => $request->keterangan
         ];
-        if ($request->hasFile('materi')) {
-            $path = public_path('materi/' . $materi->materi);
+        if ($request->hasFile('tugas')) {
+            $path = public_path('tugas/' . $tugas->tugas);
             if (File::exists($path)) {
                 unlink($path);
             }
-            $materi_baru = $request->file('materi');
-            $nama_materi = time() . '-' . $request->judul . '.' . $materi_baru->getClientOriginalExtension();
-            $materi_baru->move(public_path('materi'), $nama_materi);
-            $data['materi'] = $nama_materi;
+            $tugas_baru = $request->file('tugas');
+            $nama_tugas = time() . '-' . $request->judul . '.' . $tugas_baru->getClientOriginalExtension();
+            $tugas_baru->move(public_path('tugas'), $nama_tugas);
+            $data['tugas'] = $nama_tugas;
         } else {
-            $data['materi'] = $request->materi_lama;
+            $data['tugas'] = $request->tugas_lama;
         }
-        $materi->update($data);
-        return redirect()->route('materi.index')->with('flash', 'Materi Berhasil Diedit');
+        $tugas->update($data);
+        return redirect()->route('tugas.index')->with('flash', 'Tugas Berhasil Diedit');
     }
 
     /**
@@ -119,13 +121,13 @@ class MateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Materi $materi)
+    public function destroy(Tugas $tugas)
     {
-        $path = public_path('materi/' . $materi->materi);
+        $path = public_path('tugas/' . $tugas->tugas);
         if (File::exists($path)) {
             unlink($path);
         }
-        $materi->delete();
-        return redirect()->route('materi.index')->with('flash', 'Materi Berhasil Dihapus');
+        $tugas->delete();
+        return redirect()->route('tugas.index')->with('flash', 'Tugas Berhasil Dihapus');
     }
 }

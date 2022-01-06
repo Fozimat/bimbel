@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Materi')
+@section('title', 'Tugas')
 @push('style')
 <!-- JQuery DataTable Css -->
 <link href="{{ asset('assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}"
@@ -8,7 +8,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="block-header">
-        <h2>TINGKAT</h2>
+        <h2>TUGAS</h2>
     </div>
     @if (session('flash'))
     <div class="alert bg-green alert-dismissible" role="alert">
@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        <a href="{{ route('materi.create') }}" class="btn btn-success">Tambah Materi</a>
+                        <a href="{{ route('tugas.create') }}" class="btn btn-success">Tambah Tugas</a>
                     </h2>
                 </div>
                 <div class="body">
@@ -34,7 +34,8 @@
                                     <th>Mapel</th>
                                     <th>Tingkat</th>
                                     <th>Judul</th>
-                                    <th>Materi</th>
+                                    <th>Tugas</th>
+                                    <th>Batas Pengantaran</th>
                                     <th>Keterangan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -44,19 +45,20 @@
                                 @php
                                 $no = 1;
                                 @endphp
-                                @foreach ($materi as $m)
+                                @foreach ($tugas as $t)
                                 <tr>
                                     <td style="width: 10px;">{{ $no++ }}</td>
-                                    <td>{{ $m->mapel->nama_mapel }}</td>
-                                    <td>{{ $m->tingkat->tingkat }}</td>
-                                    <td>{{ $m->judul }}</td>
+                                    <td>{{ $t->mapel->nama_mapel }}</td>
+                                    <td>{{ $t->tingkat->tingkat }}</td>
+                                    <td>{{ $t->judul }}</td>
                                     <td><a class="btn bg-deep-purple waves-effect"
-                                            href="{{ asset('materi/'.$m->materi) }}">download</a></td>
-                                    <td>{{ $m->keterangan }}</td>
-                                    <td style="width: 150px;"><a href="{{ route('materi.edit', $m->id) }}"
+                                            href="{{ asset('tugas/'.$t->tugas) }}">download</a></td>
+                                    <td>{{ $t->batas_pengantaran }}</td>
+                                    <td>{{ $t->keterangan }}</td>
+                                    <td style="width: 150px;"><a href="{{ route('tugas.edit', $t->id) }}"
                                             class="btn btn-primary">edit</a> |
                                         <form style="display: inline-block;"
-                                            action="{{ route('materi.destroy', $m->id) }}" method="POST">
+                                            action="{{ route('tugas.destroy', $t->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger"

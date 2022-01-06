@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\MapelController;
-use App\Http\Controllers\Admin\MateriController;
-use App\Http\Controllers\Admin\TingkatController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\MapelController;
+use App\Http\Controllers\Admin\TugasController;
+use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\TingkatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('mapel', MapelController::class);
     Route::resource('tingkat', TingkatController::class);
     Route::resource('materi', MateriController::class);
+    Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
 });
 
 Auth::routes();
