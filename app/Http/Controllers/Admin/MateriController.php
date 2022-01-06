@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Mapel;
 use App\Models\Materi;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MateriRequest;
-use App\Models\Tingkat;
+use Illuminate\Support\Facades\File;
 
 class MateriController extends Controller
 {
@@ -89,9 +90,29 @@ class MateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MateriRequest $request, Materi $materi)
     {
-        //
+        // dd($request->hasFile('materi'));
+        $data = [
+            'id_mapel' => $request->id_mapel,
+            'id_tingkat' => $request->id_tingkat,
+            'judul' => $request->judul,
+            'keterangan' => $request->keterangan
+        ];
+        if ($request->hasFile('materi')) {
+            $path = public_path('materi/' . $materi->materi);
+            if (File::exists($path)) {
+                unlink($path);
+            }
+            $materi_baru = $request->file('materi');
+            $nama_materi = time() . '-' . $request->judul . '.' . $materi_baru->getClientOriginalExtension();
+            $materi_baru->move(public_path('materi'), $nama_materi);
+            $data['materi'] = $nama_materi;
+        } else {
+            $data['materi'] = $request->materi_lama;
+        }
+        $materi->update($data);
+        return redirect()->route('materi.index')->with('flash', 'Materi Berhasil Diedit');
     }
 
     /**
@@ -100,8 +121,13 @@ class MateriController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Materi $materi)
     {
-        //
+        $path = public_path('materi/' . $materi->materi);
+        if (File::exists($path)) {
+            unlink($path);
+        }
+        $materi->delete();
+        return redirect()->route('materi.index')->with('flash', 'Materi Berhasil Dihapus');
     }
 }

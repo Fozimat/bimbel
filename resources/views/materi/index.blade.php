@@ -35,6 +35,7 @@
                                     <th>Tingkat</th>
                                     <th>Judul</th>
                                     <th>Materi</th>
+                                    <th>Keterangan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -50,6 +51,7 @@
                                     <td>{{ $m->tingkat->tingkat }}</td>
                                     <td>{{ $m->judul }}</td>
                                     <td><a href="{{ asset('materi/'.$m->materi) }}">{{ $m->judul }}</a></td>
+                                    <td>{{ $m->keterangan }}</td>
                                     <td style="width: 150px;"><a href="{{ route('materi.edit', $m->id) }}"
                                             class="btn btn-primary">edit</a> |
                                         <form style="display: inline-block;"
