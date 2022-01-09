@@ -8,8 +8,8 @@
             </a>
         </li>
 
-        <li>
-            <a href="#">
+        <li class="{{ request()->is('siswa/materisiswa*') ? 'active': '' }}">
+            <a href="{{ route('materisiswa.index') }}">
                 <i class="material-icons">people</i>
                 <span>Daftar Materi</span>
             </a>

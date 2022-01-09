@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\MapelController;
 use App\Http\Controllers\Admin\TugasController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\TingkatController;
+use App\Http\Controllers\Siswa\DashboardController;
+use App\Http\Controllers\Siswa\MateriSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +38,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('siswa')->middleware(['auth'])->group(function () {
-    Route::get('/', [App\Http\Controllers\Siswa\DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('materisiswa', MateriSiswaController::class);
 });
