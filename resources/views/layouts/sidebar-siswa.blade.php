@@ -2,7 +2,7 @@
     <ul class="list">
         <li class="header">MAIN NAVIGATION</li>
         <li class="{{ request()->is('siswa') ? 'active': '' }}">
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('siswa-dashboard') }}">
                 <i class="material-icons">home</i>
                 <span>Dashboard</span>
             </a>

@@ -8,7 +8,7 @@
 
     <!-- Widgets -->
     <div class="row clearfix">
-        @foreach ($daftar_mapel as $mapel)
+        @foreach ($total_mapel as $mapel)
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-pink hover-expand-effect">
                 <div class="icon">
@@ -26,38 +26,33 @@
     </div>
     <!-- #END# Widgets -->
 
-
+    @foreach ($daftar_mapel as $mapel)
     <div class="block-header">
-        <h2>COLORED CARDS</h2>
+        <h2>{{ $mapel->nama_mapel }}</h2>
     </div>
     <div class="row clearfix">
+        @foreach ($mapel->materi->where('id_tingkat', Auth::user()->id_tingkat) as $m)
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="card">
                 <div class="header bg-red">
                     <h2>
-                        Red - Title <small>Description text here...</small>
+                        {{ $m->judul }} <small>{{ $m->created_at->isoFormat('dddd, D MMMM Y, HH:mm') }}</small>
                     </h2>
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+
                 </div>
-                <div class="body">
-                    Quis pharetra a pharetra fames blandit. Risus faucibus velit Risus imperdiet mattis neque volutpat,
-                    etiam lacinia netus dictum magnis per facilisi sociosqu. Volutpat. Ridiculus nostra.
+                <div class="body align-center">
+                    <a href="{{ asset('materi/'.$m->materi) }}" class="btn bg-indigo waves-effect">Download Materi</a>
+                </div>
+                <div class="m-l-10" style="padding-bottom: 5px">
+                    <p><strong>Keterangan:</strong> {{ $m->keterangan }}</p>
                 </div>
             </div>
         </div>
+        @endforeach
+
     </div>
+    @endforeach
+
 
 </div>
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class MateriSiswaController extends Controller
 {
@@ -18,13 +19,24 @@ class MateriSiswaController extends Controller
      */
     public function index()
     {
-        $daftar_mapel = Mapel::select('nama_mapel', DB::raw('count(*) as jumlah'))
+        $total_mapel = Mapel::select('nama_mapel', DB::raw('count(*) as jumlah'))
             ->join('materi', 'mapel.id', '=', 'materi.id_mapel')
             ->where('id_tingkat', '=', Auth::user()->id_tingkat)
             ->groupBy('id_mapel')
+            ->orderBy('id_mapel')
             ->get();
+        // $materi_per_mapel = Mapel::select('materi.id', 'nama_mapel', 'judul', 'materi', 'keterangan', 'materi.created_at')
+        //     ->join('materi', 'mapel.id', '=', 'materi.id_mapel')
+        //     ->where('id_tingkat', '=', Auth::user()->id_tingkat)
+        //     ->orderBy('id_mapel')
+        //     ->get();
+        // dd($materi_per_mapel);
+        $daftar_mapel = Mapel::whereHas('materi', function (Builder $query) {
+            $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+                ->orderBy('id_mapel');
+        })->get();
         // dd($daftar_mapel);
-        return view('siswa.materi', compact(['daftar_mapel']));
+        return view('siswa.materi', compact(['daftar_mapel', 'total_mapel']));
     }
 
     /**
