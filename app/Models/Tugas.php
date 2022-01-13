@@ -10,6 +10,9 @@ class Tugas extends Model
     use HasFactory;
     protected $table = 'tugas';
     protected $guarded = '';
+    protected $casts = [
+        'batas_pengantaran' => 'datetime',
+    ];
 
     public function mapel()
     {

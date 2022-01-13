@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\TingkatController;
 use App\Http\Controllers\Siswa\DashboardController;
 use App\Http\Controllers\Siswa\MateriSiswaController;
+use App\Http\Controllers\Siswa\TugasSiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa-dashboard');
     Route::resource('materisiswa', MateriSiswaController::class);
+    Route::resource('tugassiswa', TugasSiswaController::class);
 });

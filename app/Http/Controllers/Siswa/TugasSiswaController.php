@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Models\Mapel;
-use App\Models\Materi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
-class MateriSiswaController extends Controller
+class TugasSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,17 +17,11 @@ class MateriSiswaController extends Controller
      */
     public function index()
     {
-        $total_mapel = Mapel::select('nama_mapel', DB::raw('count(*) as jumlah'))
-            ->join('materi', 'mapel.id', '=', 'materi.id_mapel')
-            ->where('id_tingkat', '=', Auth::user()->id_tingkat)
-            ->groupBy('id_mapel')
-            ->orderBy('id_mapel')
-            ->get();
-        $daftar_mapel = Mapel::whereHas('materi', function (Builder $query) {
+        $daftar_tugas = Mapel::whereHas('tugas', function (Builder $query) {
             $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
                 ->orderBy('id_mapel');
         })->get();
-        return view('siswa.materi', compact(['daftar_mapel', 'total_mapel']));
+        return view('siswa.tugas', compact(['daftar_tugas']));
     }
 
     /**

@@ -14,8 +14,8 @@
                 <span>Daftar Materi</span>
             </a>
         </li>
-        <li>
-            <a href="{{ route('mapel.index') }}">
+        <li class="{{ request()->is('siswa/tugassiswa*') ? 'active': '' }}">
+            <a href="{{ route('tugassiswa.index') }}">
                 <i class="material-icons">text_fields</i>
                 <span>Daftar Tugas</span>
             </a>
