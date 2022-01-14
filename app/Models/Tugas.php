@@ -23,4 +23,9 @@ class Tugas extends Model
     {
         return $this->belongsTo(Tingkat::class, 'id_tingkat', 'id');
     }
+
+    public function jawaban()
+    {
+        return $this->hasOne(Jawaban::class, 'id_tugas', 'id');
+    }
 }

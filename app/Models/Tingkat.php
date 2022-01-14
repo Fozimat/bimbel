@@ -20,4 +20,9 @@ class Tingkat extends Model
     {
         return $this->hasMany(Tugas::class, 'id_tingkat', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_tingkat', 'id');
+    }
 }
