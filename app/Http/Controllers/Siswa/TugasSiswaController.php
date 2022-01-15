@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Models\Mapel;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,8 @@ class TugasSiswaController extends Controller
             $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
                 ->orderBy('id_mapel');
         })->get();
+        $tugas_belum = Tugas::doesntHave('jawaban')->get();
+        // dd($tugas_belum);
         return view('siswa.tugas', compact(['daftar_tugas']));
     }
 
@@ -62,9 +65,10 @@ class TugasSiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tugas $tugassiswa)
     {
-        //
+        // dd($tugassiswa);
+        return view('siswa.kumpul-tugas', compact(['tugassiswa']));
     }
 
     /**

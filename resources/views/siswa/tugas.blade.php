@@ -44,7 +44,8 @@
                                     <a href="{{ asset('tugas/'.$m->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
-                                    <a href="#" class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                    <a href="{{ route('tugassiswa.edit', $m->id) }}"
+                                        class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $m->batas_pengantaran->isoFormat('dddd, D MMMM Y,
                                         HH:mm')
