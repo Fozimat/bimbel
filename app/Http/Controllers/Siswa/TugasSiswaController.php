@@ -20,13 +20,16 @@ class TugasSiswaController extends Controller
      */
     public function index()
     {
-        $daftar_tugas = Mapel::whereHas('tugas', function (Builder $query) {
+        $mapel_selesai_tugas =  Mapel::whereHas('tugas', function (Builder $query) {
             $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
                 ->orderBy('id_mapel');
         })->get();
-        $tugas_belum = Tugas::doesntHave('jawaban')->get();
-        // dd($tugas_belum);
-        return view('siswa.tugas', compact(['daftar_tugas']));
+        $mapel_belum_selesai_tugas =  Mapel::whereHas('tugas', function (Builder $query) {
+            $query->doesntHave('jawaban');
+        })->get();
+        $daftar_tugas_belum_selesai = Tugas::doesntHave('jawaban')->get();
+        // dd($mapel_belum_selesai_tugas);
+        return view('siswa.tugas', compact(['mapel_belum_selesai_tugas', 'daftar_tugas_belum_selesai', 'mapel_selesai_tugas']));
     }
 
     /**

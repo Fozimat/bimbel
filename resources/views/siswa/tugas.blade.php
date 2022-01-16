@@ -34,7 +34,7 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="home">
-                            @foreach ($daftar_tugas as $mapel)
+                            @foreach ($mapel_selesai_tugas as $mapel)
                             <div class="block-header">
                                 <h2>{{ $mapel->nama_mapel }}</h2>
                             </div>
@@ -62,24 +62,35 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="profile">
-                            <b>Profile Content</b>
-                            <p>
-                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an.
-                                Pri ut tation electram moderatius.
-                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                sadipscing mel.
-                            </p>
+
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="messages">
-                            <b>Message Content</b>
-                            <p>
-                                Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an.
-                                Pri ut tation electram moderatius.
-                                Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
-                                pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
-                                sadipscing mel.
-                            </p>
+                            @foreach ($mapel_belum_selesai_tugas as $mapel)
+                            <div class="block-header">
+                                <h2>{{ $mapel->nama_mapel }}</h2>
+                            </div>
+                            @foreach ($daftar_tugas_belum_selesai->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>
+                                        {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
+                                            }}</small>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <a href="{{ asset('tugas/'.$t->tugas) }}"
+                                        class="btn bg-pink waves-effect m-r-10">Download
+                                        Tugas</a>
+                                    <a href="{{ route('tugassiswa.edit', $t->id) }}"
+                                        class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                    <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
+                                        $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,
+                                        HH:mm')
+                                        }}</span>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endforeach
                         </div>
 
                     </div>
