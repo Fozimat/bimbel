@@ -6,6 +6,8 @@ use App\Models\Mapel;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TugasSiswaRequest;
+use App\Models\Jawaban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -43,9 +45,15 @@ class TugasSiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TugasSiswaRequest $request)
     {
-        //
+        $data = [
+            'id_tugas' => $request->id_tugas,
+            'id_siswa' => Auth::user()->id,
+            'jawaban' => $request->jawaban,
+        ];
+        Jawaban::create($data);
+        return redirect()->route('tugassiswa.index')->with('flash', 'Tugas Berhasil Dikumpulkan');
     }
 
     /**
@@ -78,9 +86,8 @@ class TugasSiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TugasSiswaRequest $request, Tugas $tugassiswa)
     {
-        //
     }
 
     /**

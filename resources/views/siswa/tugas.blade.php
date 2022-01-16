@@ -5,7 +5,13 @@
     <div class="block-header">
         <h2>TUGAS</h2>
     </div>
-
+    @if (session('flash'))
+    <div class="alert bg-green alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        {{ session('flash') }}
+    </div>
+    @endif
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
