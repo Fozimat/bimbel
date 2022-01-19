@@ -20,4 +20,9 @@ class Mapel extends Model
     {
         return $this->hasMany(Tugas::class, 'id_mapel', 'id');
     }
+
+    public function jawaban()
+    {
+        return $this->hasManyThrough(Jawaban::class, Tugas::class, 'id_mapel', 'id_tugas');
+    }
 }

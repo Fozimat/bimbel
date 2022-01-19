@@ -24,17 +24,17 @@
                 <div class="body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" data-toggle="tab">ALL</a></li>
-                        <li role="presentation"><a href="#profile" data-toggle="tab">FINISHED</a>
+                        <li role="presentation" class="active"><a href="#all" data-toggle="tab">ALL</a></li>
+                        <li role="presentation"><a href="#finished" data-toggle="tab">FINISHED</a>
                         </li>
-                        <li role="presentation"><a href="#messages" data-toggle="tab">UNFINISHED</a>
+                        <li role="presentation"><a href="#unfinished" data-toggle="tab">UNFINISHED</a>
                         </li>
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="home">
-                            @foreach ($mapel_selesai_tugas as $mapel)
+                        <div role="tabpanel" class="tab-pane fade in active" id="all">
+                            @foreach ($all as $mapel)
                             <div class="block-header">
                                 <h2>{{ $mapel->nama_mapel }}</h2>
                             </div>
@@ -61,15 +61,40 @@
                             @endforeach
                             @endforeach
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="profile">
-
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="messages">
-                            @foreach ($mapel_belum_selesai_tugas as $mapel)
+                        <div role="tabpanel" class="tab-pane fade" id="finished">
+                            @foreach ($finished as $mapel)
                             <div class="block-header">
-                                <h2>{{ $mapel->nama_mapel }}</h2>
+                                <h2>{{ $mapel->mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($daftar_tugas_belum_selesai->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @foreach ($mapel->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>
+                                        {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
+                                            }}</small>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <a href="{{ asset('tugas/'.$t->tugas) }}"
+                                        class="btn bg-pink waves-effect m-r-10">Download
+                                        Tugas</a>
+                                    <a href="{{ route('tugassiswa.edit', $t->id) }}"
+                                        class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                    <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
+                                        $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,
+                                        HH:mm')
+                                        }}</span>
+                                </div>
+                            </div>
+                            @endforeach
+                            @endforeach
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="unfinished">
+                            @foreach ($unfinished as $mapel)
+                            <div class="block-header">
+                                <h2>{{ $mapel->mapel->nama_mapel }}</h2>
+                            </div>
+                            @foreach ($mapel->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
                             <div class="card">
                                 <div class="header bg-red">
                                     <h2>
