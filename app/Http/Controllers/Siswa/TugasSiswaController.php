@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Models\Mapel;
 use App\Models\Tugas;
+use App\Models\Jawaban;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TugasSiswaRequest;
-use App\Models\Jawaban;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TugasSiswaRequest;
 use Illuminate\Database\Eloquent\Builder;
 
 class TugasSiswaController extends Controller
@@ -20,17 +21,54 @@ class TugasSiswaController extends Controller
      */
     public function index()
     {
+
+        // $finished = Tugas::whereHas('jawaban', function (Builder $query) {
+        //     $query->where('id_siswa', '=', Auth::user()->id)
+        //         ->where('id_tingkat', '=', Auth::user()->id_tingkat);
+        // })->groupBy('id_mapel')->get();
+        // $unfinished = Tugas::whereDoesntHave('jawaban', function (Builder $query) {
+        //     $query->where('id_siswa', '=', Auth::user()->id)
+        //         ->where('id_tingkat', '=', Auth::user()->id_tingkat);
+        // })->groupBy('id_mapel')->get();
+        // $selesai = Tugas::whereHas('tingkat', function (Builder $query) {
+        //     $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+        //         ->whereHas('jawaban', function (Builder $query) {
+        //             $query->where('id_siswa', '=', Auth::user()->id);
+        //         });
+        // })->get();
+        // $finished =  Tingkat::whereHas('tugas', function (Builder $query) {
+        //     $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+        //         ->whereHas('mapel')
+        //         ->whereHas('jawaban', function (Builder $query) {
+        //             $query->where('id_siswa', '=', Auth::user()->id);
+        //         });
+        // })->get();
+
+        // $unfinished =  Tugas::whereHas('mapel', function (Builder $query) {
+        //     $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+        //         ->whereDoesntHave('jawaban', function (Builder $query) {
+        //             $query->where('id_siswa', '=', Auth::user()->id);
+        //         });
+        // })->groupBy('id_mapel')->get();
         $all =  Tugas::whereHas('mapel', function (Builder $query) {
             $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
         })->groupBy('id_mapel')->get();
-        $finished = Tugas::whereHas('jawaban', function (Builder $query) {
-            $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
-                ->where('id_siswa', '=', Auth::user()->id);
-        })->groupBy('id_mapel')->get();
-        $unfinished = Tugas::whereDoesntHave('jawaban', function (Builder $query) {
-            $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
-                ->where('id_siswa', '=', Auth::user()->id);
-        })->groupBy('id_mapel')->get();
+
+        $finished =  Tugas::whereHas('mapel')
+            ->whereHas('jawaban', function (Builder $query) {
+                $query->where('id_siswa', '=', Auth::user()->id);
+            })
+            ->whereHas('tingkat', function (Builder $query) {
+                $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
+            })->groupBy('id_mapel')->get();
+
+        $unfinished =  Tugas::whereHas('mapel')
+            ->whereDoesntHave('jawaban', function (Builder $query) {
+                $query->where('id_siswa', '=', Auth::user()->id);
+            })
+            ->whereHas('tingkat', function (Builder $query) {
+                $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
+            })->groupBy('id_mapel')->get();
 
         dd($finished->toArray(), $unfinished->toArray());
 
