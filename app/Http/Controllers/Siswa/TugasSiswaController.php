@@ -20,11 +20,19 @@ class TugasSiswaController extends Controller
      */
     public function index()
     {
-        $all =  Mapel::whereHas('tugas')->get();
-        $finished = Tugas::whereHas('jawaban')->groupBy('id_mapel')->get();
-        $unfinished = Tugas::doesntHave('jawaban')->groupBy('id_mapel')->get();
+        $all =  Tugas::whereHas('mapel', function (Builder $query) {
+            $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
+        })->groupBy('id_mapel')->get();
+        $finished = Tugas::whereHas('jawaban', function (Builder $query) {
+            $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+                ->where('id_siswa', '=', Auth::user()->id);
+        })->groupBy('id_mapel')->get();
+        $unfinished = Tugas::whereDoesntHave('jawaban', function (Builder $query) {
+            $query->where('id_tingkat', '=', Auth::user()->id_tingkat)
+                ->where('id_siswa', '=', Auth::user()->id);
+        })->groupBy('id_mapel')->get();
 
-        // dd($finished->toArray(), $unfinished->toArray());
+        dd($finished->toArray(), $unfinished->toArray());
 
         return view('siswa.tugas', compact(['all', 'finished', 'unfinished']));
     }

@@ -36,9 +36,9 @@
                         <div role="tabpanel" class="tab-pane fade in active" id="all">
                             @foreach ($all as $mapel)
                             <div class="block-header">
-                                <h2>{{ $mapel->nama_mapel }}</h2>
+                                <h2>{{ $mapel->mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $m)
+                            @foreach ($mapel->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $m)
                             <div class="card">
                                 <div class="header bg-red">
                                     <h2>
