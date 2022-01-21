@@ -62,11 +62,12 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="finished">
-                            @foreach ($finished as $mapel)
+                            @foreach ($finished as $tugas)
                             <div class="block-header">
-                                <h2>{{ $mapel->mapel->nama_mapel }}</h2>
+                                <h2>{{ $tugas->mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($mapel->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @foreach ($tugas->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @if (in_array($t->id, $id_tugas_finished))
                             <div class="card">
                                 <div class="header bg-red">
                                     <h2>
@@ -86,19 +87,23 @@
                                         }}</span>
                                 </div>
                             </div>
+                            @endif
+
                             @endforeach
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="unfinished">
-                            @foreach ($unfinished as $mapel)
+                            @foreach ($unfinished as $tugas)
                             <div class="block-header">
-                                <h2>{{ $mapel->mapel->nama_mapel }}</h2>
+                                <h2>{{ $tugas->mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($mapel->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @foreach ($tugas->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @if (in_array($t->id, $id_tugas_unfinished))
                             <div class="card">
                                 <div class="header bg-red">
                                     <h2>
-                                        {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
+                                        {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y,
+                                            HH:mm')
                                             }}</small>
                                     </h2>
                                 </div>
@@ -114,6 +119,7 @@
                                         }}</span>
                                 </div>
                             </div>
+                            @endif
                             @endforeach
                             @endforeach
                         </div>

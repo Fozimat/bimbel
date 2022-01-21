@@ -70,9 +70,23 @@ class TugasSiswaController extends Controller
                 $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
             })->groupBy('id_mapel')->get();
 
-        dd($finished->toArray(), $unfinished->toArray());
+        // dd($finished->toArray(), $unfinished->toArray());
+        $id_tugas_finished = [];
+        foreach ($finished as $value) {
+            // echo '<pre>';
+            $id_tugas_finished[] = $value->id;
+            // echo '</pre>';
+        }
+        $id_tugas_unfinished = [];
+        foreach ($unfinished as $value) {
+            // echo '<pre>';
+            $id_tugas_unfinished[] = $value->id;
+            // echo '</pre>';
+        }
+        // dd(json_encode($data));
+        // dd($finished->toArray());
 
-        return view('siswa.tugas', compact(['all', 'finished', 'unfinished']));
+        return view('siswa.tugas', compact(['all', 'finished', 'unfinished', 'id_tugas_finished', 'id_tugas_unfinished']));
     }
 
     /**
