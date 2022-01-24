@@ -62,11 +62,11 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="finished">
-                            @foreach ($finished as $tugas)
+                            @foreach ($mapel_finished as $mapel)
                             <div class="block-header">
-                                <h2>{{ $tugas->mapel->nama_mapel }}</h2>
+                                <h2>{{ $mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($tugas->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @foreach ($mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
                             @if (in_array($t->id, $id_tugas_finished))
                             <div class="card">
                                 <div class="header bg-red">
@@ -93,11 +93,11 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="unfinished">
-                            @foreach ($unfinished as $tugas)
+                            @foreach ($mapel_unfinished as $mapel)
                             <div class="block-header">
-                                <h2>{{ $tugas->mapel->nama_mapel }}</h2>
+                                <h2>{{ $mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($tugas->mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @foreach ($mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
                             @if (in_array($t->id, $id_tugas_unfinished))
                             <div class="card">
                                 <div class="header bg-red">
