@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     public function tingkat()
     {
-        return $this->hasOne(Tingkat::class, 'id_tingkat', 'id');
+        return $this->hasOne(Tingkat::class, 'id', 'id_tingkat');
     }
 
     public function jawaban()

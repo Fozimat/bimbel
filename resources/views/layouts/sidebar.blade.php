@@ -8,8 +8,8 @@
             </a>
         </li>
 
-        <li>
-            <a href="#">
+        <li class="{{ request()->is('admin/siswa*') ? 'active': '' }}">
+            <a href="{{ route('siswa.index') }}">
                 <i class="material-icons">people</i>
                 <span>Data Siswa</span>
             </a>
@@ -36,6 +36,12 @@
             <a href="{{ route('tugas.index') }}">
                 <i class="material-icons">assignment_ind</i>
                 <span>Data Tugas</span>
+            </a>
+        </li>
+        <li class="{{ request()->is('admin/jawaban*') ? 'active': '' }}">
+            <a href="{{ route('jawaban.index') }}">
+                <i class="material-icons">assignment_ind</i>
+                <span>Data Jawaban</span>
             </a>
         </li>
         <li>

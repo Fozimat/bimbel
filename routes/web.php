@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\JawabanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MapelController;
 use App\Http\Controllers\Admin\TugasController;
 use App\Http\Controllers\Admin\MateriController;
+use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\TingkatController;
 use App\Http\Controllers\Siswa\DashboardController;
 use App\Http\Controllers\Siswa\MateriSiswaController;
@@ -28,10 +30,12 @@ Route::get('/', function () {
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::resource('siswa', SiswaController::class);
     Route::resource('mapel', MapelController::class);
     Route::resource('tingkat', TingkatController::class);
     Route::resource('materi', MateriController::class);
     Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
+    Route::resource('jawaban', JawabanController::class);
 });
 
 Auth::routes();

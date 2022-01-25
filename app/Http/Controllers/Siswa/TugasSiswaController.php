@@ -25,7 +25,9 @@ class TugasSiswaController extends Controller
             $query->where('id_siswa', '=', Auth::user()->id);
         })->get();
 
-        $mapel_unfinished =  Mapel::whereHas('tugas')->get();
+        $mapel_unfinished = Mapel::whereHas('tugas')->whereDoesntHave('jawaban', function (Builder $query) {
+            $query->where('id_siswa', '=', Auth::user()->id);
+        })->get();
 
         $all =  Tugas::whereHas('mapel', function (Builder $query) {
             $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
@@ -46,9 +48,6 @@ class TugasSiswaController extends Controller
             ->whereHas('tingkat', function (Builder $query) {
                 $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
             })->get();
-
-
-
 
         $id_tugas_finished = [];
         foreach ($finished as $tugas) {
