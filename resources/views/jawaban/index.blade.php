@@ -10,58 +10,21 @@
     <div class="block-header">
         <h2>JAWABAN</h2>
     </div>
-    @if (session('flash'))
-    <div class="alert bg-green alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-        {{ session('flash') }}
-    </div>
-    @endif
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        <a href="{{ route('tingkat.create') }}" class="btn btn-success">Tambah tingkat</a>
-                    </h2>
-                </div>
-                <div class="body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tingkat</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                @php
-                                $no = 1;
-                                @endphp
-                                @foreach ($tingkat as $t)
-                                <tr>
-                                    <td style="width: 10px;">{{ $no++ }}</td>
-                                    <td>{{ $t->tingkat }}</td>
-                                    <td style="width: 150px;"><a href="{{ route('tingkat.edit', $t->id) }}"
-                                            class="btn btn-primary">edit</a> |
-                                        <form style="display: inline-block;"
-                                            action="{{ route('tingkat.destroy', $t->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Apakah anda yakin?')">delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="row clearfix">
+        @foreach ($tingkat as $t)
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <div class="icon bg-red">
+                    <i class="material-icons">school</i>
+                </div>
+                <div class="content">
+                    <div class="text">TINGKAT</div>
+                    <div class="number"><a href="{{ route('jawaban-tingkat', $t->id) }}">{{ $t->tingkat }}</a></div>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 @endsection

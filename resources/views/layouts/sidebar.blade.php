@@ -1,6 +1,6 @@
 <div class="menu">
     <ul class="list">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MASTER DATA</li>
         <li class="{{ request()->is('admin') ? 'active': '' }}">
             <a href="{{ route('dashboard') }}">
                 <i class="material-icons">home</i>

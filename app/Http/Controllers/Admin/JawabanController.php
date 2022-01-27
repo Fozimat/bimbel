@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Tugas;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 
 class JawabanController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,14 @@ class JawabanController extends Controller
      */
     public function index()
     {
-        //
+        $tingkat = Tingkat::all();
+        return view('jawaban.index', compact(['tingkat']));
+    }
+
+    public function tingkat($id)
+    {
+        $tugas =  Tugas::where('id_tingkat', '=', $id)->orderBy('id_mapel')->get();
+        return view('jawaban.tingkat', compact(['tugas']));
     }
 
     /**

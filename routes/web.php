@@ -36,11 +36,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('materi', MateriController::class);
     Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
     Route::resource('jawaban', JawabanController::class);
+    Route::get('jawaban/tingkat/{id}', [JawabanController::class, 'tingkat'])->name('jawaban-tingkat');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa-dashboard');
