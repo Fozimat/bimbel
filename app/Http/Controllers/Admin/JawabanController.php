@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Tugas;
-use App\Models\Jawaban;
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 
 class JawabanController extends Controller
@@ -29,7 +26,6 @@ class JawabanController extends Controller
     public function tingkat($id)
     {
         $tugas =  Tugas::where('id_tingkat', '=', $id)->orderBy('id_mapel')->get();
-        // dd($tugas->toArray());
         return view('jawaban.tingkat', compact(['tugas']));
     }
 
@@ -40,12 +36,15 @@ class JawabanController extends Controller
         })->whereHas('tingkat', function (Builder $query) use ($id) {
             $query->where('id_tingkat', '=', $id);
         })->get();
+
+        $tugas =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->pluck('judul');
         $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
             $query->where('id_tugas', '=', $tgs);
         })->whereHas('tingkat', function (Builder $query) use ($id) {
             $query->where('id_tingkat', '=', $id);
         })->get();
-        return view('jawaban.tugas', compact(['finished', 'unfinished']));
+
+        return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas']));
     }
 
     /**

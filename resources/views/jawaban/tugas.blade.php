@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        DAFTAR NAMA SISWA
+                        {{ $tugas[0] }}
                     </h2>
 
                 </div>
