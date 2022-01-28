@@ -14,8 +14,9 @@
                     <i class="material-icons">playlist_add_check</i>
                 </div>
                 <div class="content">
-                    <div class="text">NEW TASKS</div>
-                    <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20">
+                    <div class="text">TOTAL MATERI</div>
+                    <div class="number count-to" data-from="0" data-to="{{ $total_materi }}" data-speed="1000"
+                        data-fresh-interval="20">
                     </div>
                 </div>
             </div>
@@ -26,8 +27,9 @@
                     <i class="material-icons">help</i>
                 </div>
                 <div class="content">
-                    <div class="text">NEW TICKETS</div>
-                    <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                    <div class="text">TOTAL TUGAS</div>
+                    <div class="number count-to" data-from="0" data-to="{{ $total_tugas }}" data-speed="1000"
+                        data-fresh-interval="20">
                     </div>
                 </div>
             </div>
@@ -38,8 +40,9 @@
                     <i class="material-icons">forum</i>
                 </div>
                 <div class="content">
-                    <div class="text">NEW COMMENTS</div>
-                    <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20">
+                    <div class="text">TUGAS DIKERJAKAN</div>
+                    <div class="number count-to" data-from="0" data-to="{{ $total_tugas_finished }}" data-speed="1000"
+                        data-fresh-interval="20">
                     </div>
                 </div>
             </div>
@@ -50,14 +53,54 @@
                     <i class="material-icons">person_add</i>
                 </div>
                 <div class="content">
-                    <div class="text">NEW VISITORS</div>
-                    <div class="number count-to" data-from="0" data-to="1225" data-speed="1000"
+                    <div class="text" style="font-size: 10px;">TUGAS BELUM DIKERJAKAN</div>
+                    <div class="number count-to" data-from="0" data-to="{{ $total_tugas_unfinished }}" data-speed="1000"
                         data-fresh-interval="20"></div>
                 </div>
             </div>
         </div>
     </div>
     <!-- #END# Widgets -->
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <h2>DAFTAR TUGAS YANG BELUM DIKERJAKAN</h2>
+
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-hover dashboard-task-infos">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tugas</th>
+                                    <th>Mapel</th>
+                                    <th>Batas Pengantaran</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($daftar_tugas_unfinished as $tugas)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $tugas->judul }}</td>
+                                    <td>{{ $tugas->mapel->nama_mapel }}</td>
+                                    <td>{{ $tugas->created_at->isoFormat('dddd, D MMMM Y, HH:mm') }}</td>
+                                    <td>
+                                        <a href="{{ route('tugassiswa.edit', $tugas->id) }}"
+                                            class="btn bg-teal waves-effect">Kumpulkan Sekarang</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 @endsection
