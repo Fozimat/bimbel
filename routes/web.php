@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('siswa', SiswaController::class);
     Route::resource('mapel', MapelController::class);
