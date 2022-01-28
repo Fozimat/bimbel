@@ -37,6 +37,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
     Route::resource('jawaban', JawabanController::class);
     Route::get('jawaban/tingkat/{id}', [JawabanController::class, 'tingkat'])->name('jawaban-tingkat');
+    Route::get('jawaban/tingkat/{id}/tugas/{tgs}', [JawabanController::class, 'tugas'])->name('jawaban-siswa');
 });
 
 Auth::routes();

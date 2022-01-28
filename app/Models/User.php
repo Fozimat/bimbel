@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Jawaban::class, 'id_siswa', 'id');
     }
+
+    // public function tugas()
+    // {
+    //     return $this->hasManyThrough(Tugas::class, Jawaban::class, 'id_siswa', 'id');
+    // }
 }
