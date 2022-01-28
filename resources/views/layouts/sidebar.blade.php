@@ -44,12 +44,12 @@
                 <span>Data Jawaban</span>
             </a>
         </li>
-        <li>
+        {{-- <li>
             <a href="pages/helper-classes.html">
                 <i class="material-icons">library_books</i>
                 <span>Data Jadwal</span>
             </a>
-        </li>
+        </li> --}}
         <li class="header">LABELS</li>
         <li>
             <a href="javascript:void(0);">

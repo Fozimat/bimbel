@@ -25,12 +25,12 @@
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active">
                             <a href="#finished" data-toggle="tab">
-                                <i class="material-icons">home</i> FINISHED
+                                <i class="material-icons">assignment_turned_in</i> FINISHED
                             </a>
                         </li>
                         <li role="presentation">
                             <a href="#unfinished" data-toggle="tab">
-                                <i class="material-icons">face</i> UNFINISHED
+                                <i class="material-icons">assignment_late</i> UNFINISHED
                             </a>
                         </li>
                     </ul>

@@ -29,6 +29,7 @@ class JawabanController extends Controller
     public function tingkat($id)
     {
         $tugas =  Tugas::where('id_tingkat', '=', $id)->orderBy('id_mapel')->get();
+        // dd($tugas->toArray());
         return view('jawaban.tingkat', compact(['tugas']));
     }
 
@@ -44,20 +45,6 @@ class JawabanController extends Controller
         })->whereHas('tingkat', function (Builder $query) use ($id) {
             $query->where('id_tingkat', '=', $id);
         })->get();
-        // $finished = Jawaban::whereHas('user', function (Builder $query) use ($tgs) {
-        //     $query->where('id_tugas', '=', $tgs);
-        // })->get();
-        // $unfinished = Jawaban::whereHas('user', function (Builder $query) use ($tgs) {
-        //     $query->where('id_tugas', '=', $tgs);
-        // })->get();
-        // $unfinished =  Tugas::whereDoesntHave('jawaban', function (Builder $query) {
-        //     $query->where('id_siswa', '=', Auth::user()->id);
-        // })
-        //     ->whereHas('tingkat', function (Builder $query) {
-        //         $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
-        //     })->get();
-        // $db = DB::select('select * from `users` where exists (select * from `jawaban` where `users`.`id` = `jawaban`.`id_siswa`) and exists (select * from `jawaban` inner join `tugas` on `jawaban`.`id_tugas` = `tugas`.`id` where `users`.`id` = `jawaban`.`id_siswa` and `id_tugas` = 4)');
-        // dd($finished->toArray(), $unfinished->toArray());
         return view('jawaban.tugas', compact(['finished', 'unfinished']));
     }
 

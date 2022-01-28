@@ -40,7 +40,8 @@
                                     <td style="width: 10px;">{{ $no++ }}</td>
                                     <td>{{ $t->mapel->nama_mapel }}</td>
                                     <td>{{ $t->judul }}</td>
-                                    <td style="width: 150px;"><a href="{{ route('jawaban-siswa') }}"
+                                    <td style="width: 150px;"><a
+                                            href="{{ route('jawaban-siswa', ['id' => $t->id_tingkat, 'tgs' => $t->id]) }}"
                                             class="btn btn-primary">detail</a>
                                     </td>
                                 </tr>
