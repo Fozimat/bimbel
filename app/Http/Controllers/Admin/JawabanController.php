@@ -44,7 +44,18 @@ class JawabanController extends Controller
             $query->where('id_tingkat', '=', $id);
         })->get();
 
-        return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas']));
+        $batas_pengantaran =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->pluck('batas_pengantaran');
+        // dd($batas_pengantaran);
+
+        $data = [];
+        foreach ($finished as $f) {
+            $data[] = $f->jawaban->where('id_tugas', '=', $tgs)->toArray();
+        }
+        $res = call_user_func_array('array_merge', $data);
+        $json = json_encode($res);
+
+
+        return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran']));
     }
 
     /**
