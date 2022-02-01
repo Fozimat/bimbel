@@ -8,17 +8,17 @@
 @section('content')
 <div class="container-fluid">
     <div class="block-header">
-        <h2>TUGAS SISWA</h2>
+        <h2> {{ $tugas[0]->judul }}
+        </h2>
     </div>
 
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>
-                        {{ $tugas[0] }}
+                    <h2 class="font-bold col-pink">
+                        Batas Pengantaran: {{ date('d/m/Y - H:i', strtotime($batas_pengantaran[0])) }}
                     </h2>
-
                 </div>
                 <div class="body">
                     <!-- Nav tabs -->
@@ -44,9 +44,9 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Siswa</th>
-                                            <th>Batas Pengantaran</th>
                                             <th>Waktu Pengantaran</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -55,63 +55,65 @@
                                         @endphp
                                         @foreach ($finished as $key => $f)
                                         <tr>
-                                            <td style="width: 10px;">{{ $no++ }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $f->nama }}</td>
-                                            <td>{{ date('d-m-Y - H:i', strtotime($batas_pengantaran[0])) }}</td>
-                                            <td>{{ date('d-m-Y - H:i', strtotime($res[$key]['created_at'])) }}</td>
+                                            <td>{{ date('d/m/Y - H:i', strtotime($res[$key]['created_at'])) }}</td>
                                             <td>{!! strtotime($res[$key]['created_at']) >=
                                                 strtotime($batas_pengantaran[0]) ? '<a
                                                     class="btn bg-red waves-effect">telat</a>' :
-                                                '<a class="btn btn-success waves-effect"">selesai</a>' !!} </td>
+                                                '<a class="btn btn-success waves-effect"">oke</a>' !!} </td>
+                                                <td><a href=" {{ route('detail-jawaban-siswa', ['siswa'=> $f->id, 'tgs'
+                                                    => $tugas[0]->id]) }}"
+                                                    class=" btn bg-cyan waves-effect">Lihat Jawaban</a></td>
                                         </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div role=" tabpanel" class="tab-pane fade" id="unfinished">
-                                                    <div class="table-responsive">
-                                                        <table
-                                                            class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>Nama Siswa</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @php
-                                                                $no = 1;
-                                                                @endphp
-                                                                @foreach ($unfinished as $un)
-                                                                <tr>
-                                                                    <td style="width: 10px;">{{ $no++ }}</td>
-                                                                    <td>{{ $un->nama }}</td>
-                                                                </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                        <div role="tabpanel" class="tab-pane fade" id="unfinished">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable js-exportable"
+                                    width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Siswa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $no = 1;
+                                        @endphp
+                                        @foreach ($unfinished as $un)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $un->nama }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-    @endsection
 
-    @push('script')
-    <script src="{{ asset('assets/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/tables/jquery-datatable.js') }}"></script>
-    @endpush
+</div>
+@endsection
+
+@push('script')
+<script src="{{ asset('assets/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/tables/jquery-datatable.js') }}"></script>
+@endpush

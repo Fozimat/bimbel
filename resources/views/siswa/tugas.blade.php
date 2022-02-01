@@ -24,10 +24,14 @@
                 <div class="body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                        <li role="presentation" class="active"><a href="#all" data-toggle="tab">ALL</a></li>
-                        <li role="presentation"><a href="#finished" data-toggle="tab">FINISHED</a>
+                        <li role="presentation" class="active"><a href="#all" data-toggle="tab"><i
+                                    class="material-icons">assignment</i>ALL</a></li>
+                        <li role="presentation"><a href="#finished" data-toggle="tab">
+                                <i class="material-icons">assignment_turned_in</i>
+                                FINISHED</a>
                         </li>
-                        <li role="presentation"><a href="#unfinished" data-toggle="tab">UNFINISHED</a>
+                        <li role="presentation"><a href="#unfinished" data-toggle="tab"><i
+                                    class="material-icons">assignment_late</i>UNFINISHED</a>
                         </li>
                     </ul>
 

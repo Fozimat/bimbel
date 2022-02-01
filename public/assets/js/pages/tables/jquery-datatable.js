@@ -9,6 +9,9 @@ $(function () {
         responsive: true,
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "columnDefs": [
+            { "width": "5%", "targets": 0 }
         ]
     });
 });

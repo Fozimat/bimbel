@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Tugas;
+use App\Models\Jawaban;
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -37,7 +38,8 @@ class JawabanController extends Controller
             $query->where('id_tingkat', '=', $id);
         })->get();
 
-        $tugas =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->pluck('judul');
+        $tugas =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->get();
+
         $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
             $query->where('id_tugas', '=', $tgs);
         })->whereHas('tingkat', function (Builder $query) use ($id) {
@@ -45,8 +47,6 @@ class JawabanController extends Controller
         })->get();
 
         $batas_pengantaran =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->pluck('batas_pengantaran');
-        // dd($batas_pengantaran);
-
         $data = [];
         foreach ($finished as $f) {
             $data[] = $f->jawaban->where('id_tugas', '=', $tgs)->toArray();
@@ -54,8 +54,13 @@ class JawabanController extends Controller
         $res = call_user_func_array('array_merge', $data);
         $json = json_encode($res);
 
-
         return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran']));
+    }
+
+    public function jawaban($siswa, $tgs)
+    {
+        $jawaban = Jawaban::where('id_siswa', '=', $siswa)->where('id_tugas', '=', $tgs)->get();
+        return view('jawaban.detail-jawaban', compact(['jawaban']));
     }
 
     /**
