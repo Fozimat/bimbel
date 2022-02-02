@@ -108,7 +108,6 @@ class TugasSiswaController extends Controller
      */
     public function edit(Tugas $tugassiswa)
     {
-        // dd($tugassiswa);
         return view('siswa.kumpul-tugas', compact(['tugassiswa']));
     }
 
@@ -131,6 +130,7 @@ class TugasSiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Jawaban::findOrFail($id)->delete();
+        return redirect()->route('tugassiswa.index')->with('flash', 'Tugas Berhasil Dihapus');
     }
 }

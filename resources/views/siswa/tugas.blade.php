@@ -54,8 +54,14 @@
                                     <a href="{{ asset('tugas/'.$m->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
+                                    @if (in_array($m->id, $id_tugas_finished))
+                                    <a href="{{ route('tugassiswa.edit', $m->id) }}"
+                                        class="btn bg-indigo waves-effect">Edit Tugas</a>
+                                    @else
                                     <a href="{{ route('tugassiswa.edit', $m->id) }}"
                                         class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                    @endif
+
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $m->batas_pengantaran->isoFormat('dddd, D MMMM Y,
                                         HH:mm')
@@ -78,13 +84,22 @@
                                         {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
                                             }}</small>
                                     </h2>
+                                    <ul class="header-dropdown m-r--5">
+                                        <li>
+                                            <a href="{{ route('deletetugas', $t->jawaban->id) }}"
+                                                onclick="return confirm('Apakah anda yakin?');">
+                                                <i class="material-icons">delete_forever</i>
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </div>
                                 <div class="body">
                                     <a href="{{ asset('tugas/'.$t->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
                                     <a href="{{ route('tugassiswa.edit', $t->id) }}"
-                                        class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                        class="btn bg-indigo waves-effect">Edit Tugas</a>
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,
                                         HH:mm')
@@ -97,11 +112,10 @@
                             @endforeach
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="unfinished">
-                            @foreach ($mapel_unfinished as $mapel)
+                            @foreach ($unfinished->where('id_tingkat', Auth::user()->id_tingkat) as $t)
                             <div class="block-header">
-                                <h2>{{ $mapel->nama_mapel }}</h2>
+                                <h2>{{ $t->mapel->nama_mapel }}</h2>
                             </div>
-                            @foreach ($mapel->tugas->where('id_tingkat', Auth::user()->id_tingkat) as $t)
                             @if (in_array($t->id, $id_tugas_unfinished))
                             <div class="card">
                                 <div class="header bg-red">
@@ -124,7 +138,6 @@
                                 </div>
                             </div>
                             @endif
-                            @endforeach
                             @endforeach
                         </div>
 

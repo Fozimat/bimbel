@@ -46,5 +46,6 @@ Auth::routes();
 Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa-dashboard');
     Route::resource('materisiswa', MateriSiswaController::class);
+    Route::get('/deletetugas/{jawaban}', [TugasSiswaController::class, 'destroy'])->name('deletetugas');
     Route::resource('tugassiswa', TugasSiswaController::class);
 });
