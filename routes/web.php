@@ -46,6 +46,7 @@ Auth::routes();
 Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('siswa-dashboard');
     Route::resource('materisiswa', MateriSiswaController::class);
+    Route::get('/tugassiswa/ubah/tugas/{tugas}/jawaban/{jawaban}', [TugasSiswaController::class, 'ubah'])->name('tugassiswa.ubah');
+    Route::resource('tugassiswa', TugasSiswaController::class, ['except' => ['destoy']]);
     Route::get('/deletetugas/{jawaban}', [TugasSiswaController::class, 'destroy'])->name('deletetugas');
-    Route::resource('tugassiswa', TugasSiswaController::class);
 });

@@ -55,8 +55,7 @@
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
                                     @if (in_array($m->id, $id_tugas_finished))
-                                    <a href="{{ route('tugassiswa.edit', $m->id) }}"
-                                        class="btn bg-indigo waves-effect">Edit Tugas</a>
+                                    <a href="#" class="btn bg-indigo waves-effect">Edit Tugas</a>
                                     @else
                                     <a href="{{ route('tugassiswa.edit', $m->id) }}"
                                         class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
@@ -84,9 +83,14 @@
                                         {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
                                             }}</small>
                                     </h2>
+                                    @php
+                                    $id_siswa = json_decode($mapel->jawaban->where('id_tugas',
+                                    $t->id)->where('id_siswa', '=',
+                                    Auth::user()->id)->pluck('id'));
+                                    @endphp
                                     <ul class="header-dropdown m-r--5">
                                         <li>
-                                            <a href="{{ route('deletetugas', $t->jawaban->id) }}"
+                                            <a href="{{ route('deletetugas', $id_siswa) }}"
                                                 onclick="return confirm('Apakah anda yakin?');">
                                                 <i class="material-icons">delete_forever</i>
                                             </a>
@@ -98,7 +102,7 @@
                                     <a href="{{ asset('tugas/'.$t->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
-                                    <a href="{{ route('tugassiswa.edit', $t->id) }}"
+                                    <a href="{{ route('tugassiswa.ubah', ['jawaban' => $t->jawaban->id, 'tugas' => $t->id]) }}"
                                         class="btn bg-indigo waves-effect">Edit Tugas</a>
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,
