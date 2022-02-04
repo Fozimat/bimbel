@@ -102,7 +102,7 @@
                                     <a href="{{ asset('tugas/'.$t->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
-                                    <a href="{{ route('tugassiswa.ubah', ['jawaban' => $t->jawaban->id, 'tugas' => $t->id]) }}"
+                                    <a href="{{ route('tugassiswa.ubah', ['jawaban' =>  implode(' ', $id_siswa), 'tugas' => $t->id]) }}"
                                         class="btn bg-indigo waves-effect">Edit Tugas</a>
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,

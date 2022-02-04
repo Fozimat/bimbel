@@ -10,23 +10,24 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        {{ $jawaban }}
+                        {{ $tugas->judul }}
                     </h2>
                 </div>
                 <div class="body">
-                    <form action="" method="POST">
+                    <form action="{{ route('tugassiswa.update', $jawaban->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
                         {{-- <input type="hidden" name="id_tugas" value="{{ $tugassiswa->id }}"> --}}
                         <div class="form-group">
                             <div class="form-line @error('jawaban') error focused @enderror">
                                 <label for="jawaban">Jawaban</label>
-                                <textarea id="ckeditor" name="jawaban"></textarea>
+                                <textarea id="ckeditor" name="jawaban">{{ $jawaban->jawaban }}</textarea>
                             </div>
                             @error('jawaban')
                             <label id="jawaban-error" class="error" for="jawaban">{{ $message }}
                                 @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Kumpul</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </form>
                 </div>
             </div>

@@ -48,7 +48,7 @@ class TugasSiswaController extends Controller
             })
             ->whereHas('tingkat', function (Builder $query) {
                 $query->where('id_tingkat', '=', Auth::user()->id_tingkat);
-            })->get();
+            })->orderBy('id_mapel')->get();
 
         $id_tugas_finished = [];
         foreach ($finished as $tugas) {
@@ -59,18 +59,6 @@ class TugasSiswaController extends Controller
         foreach ($unfinished as $tugas) {
             $id_tugas_unfinished[] = $tugas->id;
         }
-
-        $jawaban = Jawaban::where('id_siswa', '=', Auth::user()->id)->get();
-        // dd($jawaban->toArray());
-
-        // $jawaban = Jawaban::with(['tugas'])->get();
-        $user = User::whereHas('jawaban', function (Builder $query) {
-            $query->where('id_tugas', '=', 5)
-                ->where('id_siswa', '=', Auth::user()->id);
-        })->whereHas('tingkat', function (Builder $query) {
-            $query->where('id_tingkat', '=', 1);
-        })->get();
-        // dd($user[0]->tingkat->tugas->where('id', '=', 5)->toArray());
 
         return view('siswa.tugas', compact(['all', 'finished', 'unfinished', 'id_tugas_finished', 'id_tugas_unfinished',  'mapel_finished', 'mapel_unfinished']));
     }
@@ -124,13 +112,11 @@ class TugasSiswaController extends Controller
         return view('siswa.kumpul-tugas', compact(['tugassiswa']));
     }
 
-    public function ubah($jawaban, $tgs)
+    public function ubah($tugas, $jawaban)
     {
-        $tugas = Tugas::findOrFail($tgs);
-        dd($tugas);
-        $jawaban = Jawaban::with('tugas')->findOrFail($jawaban);
-        // dd($jawaban);
-        return view('siswa.ubah-tugas', compact(['jawaban']));
+        $tugas = Tugas::findOrFail($tugas);
+        $jawaban = Jawaban::findOrFail($jawaban);
+        return view('siswa.ubah-tugas', compact(['tugas', 'jawaban']));
     }
 
     /**
@@ -140,8 +126,13 @@ class TugasSiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TugasSiswaRequest $request, Tugas $tugassiswa)
+    public function update(Request $request, $jawaban)
     {
+        $data = [
+            'jawaban' => $request->jawaban
+        ];
+        Jawaban::findOrFail($jawaban)->update($data);
+        return redirect()->route('tugassiswa.index')->with('flash', 'Tugas Berhasil Diedit');
     }
 
     /**
