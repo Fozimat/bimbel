@@ -8,7 +8,7 @@ $(function () {
         dom: 'Bfrtip',
         responsive: true,
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            { extend: 'pdf', className: 'btn bg-purple waves-effect' },
         ],
         "columnDefs": [
             { "width": "5%", "targets": 0 }

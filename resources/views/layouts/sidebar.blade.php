@@ -44,30 +44,5 @@
                 <span>Data Jawaban</span>
             </a>
         </li>
-        {{-- <li>
-            <a href="pages/helper-classes.html">
-                <i class="material-icons">library_books</i>
-                <span>Data Jadwal</span>
-            </a>
-        </li> --}}
-        <li class="header">LABELS</li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-red">donut_large</i>
-                <span>Important</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-amber">donut_large</i>
-                <span>Warning</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-light-blue">donut_large</i>
-                <span>Information</span>
-            </a>
-        </li>
     </ul>
 </div>

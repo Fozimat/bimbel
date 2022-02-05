@@ -20,24 +20,5 @@
                 <span>Daftar Tugas</span>
             </a>
         </li>
-        <li class="header">LABELS</li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-red">donut_large</i>
-                <span>Important</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-amber">donut_large</i>
-                <span>Warning</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);">
-                <i class="material-icons col-light-blue">donut_large</i>
-                <span>Information</span>
-            </a>
-        </li>
     </ul>
 </div>
