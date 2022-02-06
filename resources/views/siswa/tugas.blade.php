@@ -102,12 +102,15 @@
                                 </div>
                             </div>
                             @endif
-
                             @endforeach
                             @endforeach
                         </div>
+                        @php
+                        $cek_nama_mapel = "";
+                        @endphp
                         <div role="tabpanel" class="tab-pane fade" id="unfinished">
                             @foreach ($unfinished->where('id_tingkat', Auth::user()->id_tingkat) as $t)
+                            @if ($t->mapel->nama_mapel != $cek_nama_mapel)
                             <div class="block-header">
                                 <h2>{{ $t->mapel->nama_mapel }}</h2>
                             </div>
@@ -133,6 +136,33 @@
                                 </div>
                             </div>
                             @endif
+                            @else
+                            @if (in_array($t->id, $id_tugas_unfinished))
+                            <div class="card">
+                                <div class="header bg-red">
+                                    <h2>
+                                        {{ $t->judul }} <small>{{ $t->created_at->isoFormat('dddd, D MMMM Y,
+                                            HH:mm')
+                                            }}</small>
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                    <a href="{{ asset('tugas/'.$t->tugas) }}"
+                                        class="btn bg-pink waves-effect m-r-10">Download
+                                        Tugas</a>
+                                    <a href="{{ route('tugassiswa.edit', $t->id) }}"
+                                        class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
+                                    <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
+                                        $t->batas_pengantaran->isoFormat('dddd, D MMMM Y,
+                                        HH:mm')
+                                        }}</span>
+                                </div>
+                            </div>
+                            @endif
+                            @endif
+                            @php
+                            $cek_nama_mapel = $t->mapel->nama_mapel;
+                            @endphp
                             @endforeach
                         </div>
 
