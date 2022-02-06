@@ -88,15 +88,6 @@
                                     $t->id)->where('id_siswa', '=',
                                     Auth::user()->id)->pluck('id'));
                                     @endphp
-                                    <ul class="header-dropdown m-r--5">
-                                        <li>
-                                            <a href="{{ route('deletetugas', $id_siswa) }}"
-                                                onclick="return confirm('Apakah anda yakin?');">
-                                                <i class="material-icons">delete_forever</i>
-                                            </a>
-                                        </li>
-
-                                    </ul>
                                 </div>
                                 <div class="body">
                                     <a href="{{ asset('tugas/'.$t->tugas) }}"
