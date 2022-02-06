@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TugasController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\TingkatController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Siswa\DashboardController;
 use App\Http\Controllers\Siswa\MateriSiswaController;
 use App\Http\Controllers\Siswa\TugasSiswaController;
@@ -49,4 +50,6 @@ Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/tugassiswa/ubah/tugas/{tugas}/jawaban/{jawaban}', [TugasSiswaController::class, 'ubah'])->name('tugassiswa.ubah');
     Route::resource('tugassiswa', TugasSiswaController::class, ['except' => ['destoy']]);
     Route::get('/deletetugas/{jawaban}', [TugasSiswaController::class, 'destroy'])->name('deletetugas');
+    Route::get('/ganti-password', [ProfileController::class, 'ganti_password'])->name('ganti-password');
+    Route::post('/ganti-password', [ProfileController::class, 'store'])->name('ganti-password-post');
 });

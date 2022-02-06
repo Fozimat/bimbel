@@ -87,7 +87,8 @@
                         <ul class="dropdown-menu pull-right">
                             <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">lock</i>Ganti Password</a></li>
+                            <li><a href="{{ route('ganti-password') }}"><i class="material-icons">lock</i>Ganti
+                                    Password</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();"><i
