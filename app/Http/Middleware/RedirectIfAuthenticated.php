@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Traits\LoginTrait;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+    use LoginTrait;
     /**
      * Handle an incoming request.
      *
@@ -23,7 +25,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // return redirect(RouteServiceProvider::HOME);
+                return $this->redirectTo();
             }
         }
 

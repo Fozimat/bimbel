@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\JawabanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MapelController;
 use App\Http\Controllers\Admin\TugasController;
 use App\Http\Controllers\Admin\MateriController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\TingkatController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Siswa\DashboardController;
 use App\Http\Controllers\Siswa\MateriSiswaController;
@@ -25,12 +26,10 @@ use App\Http\Controllers\Siswa\TugasSiswaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardAdminController::class, 'index'])->name('dashboard');
     Route::resource('siswa', SiswaController::class);
     Route::resource('mapel', MapelController::class);
     Route::resource('tingkat', TingkatController::class);
