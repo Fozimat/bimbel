@@ -52,4 +52,6 @@ Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/deletetugas/{jawaban}', [TugasSiswaController::class, 'destroy'])->name('deletetugas');
     Route::get('/ganti-password', [ProfileController::class, 'ganti_password'])->name('ganti-password');
     Route::post('/ganti-password', [ProfileController::class, 'store'])->name('ganti-password-post');
+    Route::get('/ganti-profile', [ProfileController::class, 'ganti_profile'])->name('ganti-profile');
+    Route::post('/ganti-profile', [ProfileController::class, 'change'])->name('ganti-profile-post');
 });
