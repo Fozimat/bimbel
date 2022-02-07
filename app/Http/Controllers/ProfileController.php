@@ -43,8 +43,10 @@ class ProfileController extends Controller
         ];
         if ($request->hasFile('avatar')) {
             $path = public_path('avatar/' . auth()->user()->avatar);
-            if (File::exists($path)) {
-                unlink($path);
+            if (auth()->user()->avatar != 'default.png') {
+                if (File::exists($path)) {
+                    unlink($path);
+                }
             }
             $avatar_baru = $request->file('avatar');
             $nama_avatar = auth()->user()->id . '-' . auth()->user()->nama . '.' . $avatar_baru->getClientOriginalExtension();

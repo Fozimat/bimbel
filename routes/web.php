@@ -50,6 +50,9 @@ Route::prefix('siswa')->middleware(['auth'])->group(function () {
     Route::get('/tugassiswa/ubah/tugas/{tugas}/jawaban/{jawaban}', [TugasSiswaController::class, 'ubah'])->name('tugassiswa.ubah');
     Route::resource('tugassiswa', TugasSiswaController::class, ['except' => ['destoy']]);
     Route::get('/deletetugas/{jawaban}', [TugasSiswaController::class, 'destroy'])->name('deletetugas');
+});
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/ganti-password', [ProfileController::class, 'ganti_password'])->name('ganti-password');
     Route::post('/ganti-password', [ProfileController::class, 'store'])->name('ganti-password-post');
     Route::get('/ganti-profile', [ProfileController::class, 'ganti_profile'])->name('ganti-profile');
