@@ -39,6 +39,13 @@
             {{ session('flash') }}
         </div>
         @endif
+        @if (session('status'))
+        <div class="alert bg-green alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="card">
             <div class="body">
                 <form method="POST" action="{{ route('login') }}" id="sign_in">
