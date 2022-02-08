@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SiswaController extends Controller
 {
@@ -57,9 +58,10 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $siswa)
     {
-        //
+        $tingkat = Tingkat::all();
+        return view('siswa-admin.edit', compact(['siswa', 'tingkat']));
     }
 
     /**
@@ -69,9 +71,15 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $siswa)
     {
-        //
+        $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $siswa->id],
+            'id_tingkat' => ['required']
+        ]);
+        $siswa->update($request->all());
+        return redirect()->route('siswa.index')->with('flash', 'Siswa Berhasil Diedit');
     }
 
     /**
@@ -80,8 +88,9 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $siswa)
     {
-        //
+        $siswa->delete();
+        return redirect()->route('siswa.index')->with('flash', 'Siswa Berhasil Dihapus');
     }
 }

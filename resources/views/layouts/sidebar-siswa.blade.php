@@ -1,6 +1,6 @@
 <div class="menu">
     <ul class="list">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">MASTER DATA</li>
         <li class="{{ request()->is('siswa') ? 'active': '' }}">
             <a href="{{ route('siswa-dashboard') }}">
                 <i class="material-icons">home</i>

@@ -48,8 +48,15 @@
                                     <td>{{ $s->nama }}</td>
                                     <td>{{ $s->email }}</td>
                                     <td>{{ $s->tingkat->tingkat}}</td>
-                                    <td style="width: 150px;"><a href="{{ route('siswa.show', $s->id) }}"
-                                            class="btn btn-primary">detail</a>
+                                    <td style="width: 150px;"><a href="{{ route('siswa.edit', $s->id) }}"
+                                            class="btn btn-primary">edit</a> |
+                                        <form style="display: inline-block;"
+                                            action="{{ route('siswa.destroy', $s->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Apakah anda yakin?')">delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
