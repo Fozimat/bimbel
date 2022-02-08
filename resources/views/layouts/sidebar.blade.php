@@ -16,13 +16,13 @@
         </li>
         <li class="{{ request()->is('admin/mapel*') ? 'active': '' }}">
             <a href="{{ route('mapel.index') }}">
-                <i class="material-icons">text_fields</i>
+                <i class="material-icons">library_books</i>
                 <span>Data Mapel</span>
             </a>
         </li>
         <li class="{{ request()->is('admin/tingkat*') ? 'active': '' }}">
             <a href="{{ route('tingkat.index') }}">
-                <i class="material-icons">group</i>
+                <i class="material-icons">school</i>
                 <span>Data Tingkat</span>
             </a>
         </li>
@@ -40,7 +40,7 @@
         </li>
         <li class="{{ request()->is('admin/jawaban*') ? 'active': '' }}">
             <a href="{{ route('jawaban.index') }}">
-                <i class="material-icons">assignment_ind</i>
+                <i class="material-icons">assignment_returned</i>
                 <span>Data Jawaban</span>
             </a>
         </li>
