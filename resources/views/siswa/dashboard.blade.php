@@ -11,7 +11,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-pink hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">playlist_add_check</i>
+                    <i class="material-icons">description</i>
                 </div>
                 <div class="content">
                     <div class="text">TOTAL MATERI</div>
@@ -24,7 +24,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-cyan hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">help</i>
+                    <i class="material-icons">assignment</i>
                 </div>
                 <div class="content">
                     <div class="text">TOTAL TUGAS</div>
@@ -37,7 +37,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-light-green hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">forum</i>
+                    <i class="material-icons">assignment_turned_in</i>
                 </div>
                 <div class="content">
                     <div class="text">TUGAS DIKERJAKAN</div>
@@ -50,7 +50,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
             <div class="info-box bg-orange hover-expand-effect">
                 <div class="icon">
-                    <i class="material-icons">person_add</i>
+                    <i class="material-icons">assignment_late</i>
                 </div>
                 <div class="content">
                     <div class="text" style="font-size: 10px;">TUGAS BELUM DIKERJAKAN</div>

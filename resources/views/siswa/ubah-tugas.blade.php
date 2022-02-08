@@ -17,10 +17,24 @@
                     <form action="{{ route('tugassiswa.update', $jawaban->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        {{-- <input type="hidden" name="id_tugas" value="{{ $tugassiswa->id }}"> --}}
+                        <label for="nama">Batas Pengantaran</label>
+                        <div class="form-group">
+                            <div class="form-line disabled">
+                                <input type="text" disabled id="nama" name="nama" class="form-control"
+                                    value="{{  $tugas->batas_pengantaran->isoFormat('dddd, D MMMM Y - HH:mm') }}"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan</label>
+                            <div class="form-line disabled">
+                                <textarea rows="4" class="form-control no-resize" disabled name="keterangan">{{
+                                    $tugas->keterangan }}</textarea>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="form-line @error('jawaban') error focused @enderror">
-                                <label for="jawaban">Jawaban</label>
+                                <label for="jawaban">JAWABAN (Isi Jawaban anda pada kotak di bawah ini)</label>
                                 <textarea id="ckeditor" name="jawaban">{{ $jawaban->jawaban }}</textarea>
                             </div>
                             @error('jawaban')
