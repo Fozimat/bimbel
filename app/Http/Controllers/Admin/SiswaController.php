@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Mapel;
+use App\Models\Tugas;
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class SiswaController extends Controller
 {
@@ -18,6 +21,54 @@ class SiswaController extends Controller
     {
         $siswa = User::with('tingkat')->where('role', 'siswa')->get();
         return view('siswa-admin.index', compact(['siswa']));
+    }
+
+    public function jawaban($id_siswa)
+    {
+        $mapel_finished =  Mapel::whereHas('tugas')->whereHas('jawaban', function (Builder $query) use ($id_siswa) {
+            $query->where('id_siswa', '=', $id_siswa);
+        })->get();
+
+        $mapel_unfinished = Mapel::whereHas('tugas')->whereDoesntHave('jawaban', function (Builder $query) use ($id_siswa) {
+            $query->where('id_siswa', '=', $id_siswa);
+        })->get();
+
+        $tingkat_siswa = User::find($id_siswa)->tingkat->id;
+        // dd($tingkat_siswa);
+        $nama_siswa = User::find($id_siswa)->nama;
+
+        $all =  Tugas::whereHas('mapel', function (Builder $query) use ($tingkat_siswa) {
+            $query->where('id_tingkat', '=', $tingkat_siswa);
+        })->groupBy('id_mapel')->get();
+        // dd($all);
+
+        $finished =  Tugas::whereHas('mapel')
+            ->whereHas('jawaban', function (Builder $query) use ($id_siswa) {
+                $query->where('id_siswa', '=', $id_siswa);
+            })
+            ->whereHas('tingkat', function (Builder $query)  use ($tingkat_siswa) {
+                $query->where('id_tingkat', '=', $tingkat_siswa);
+            })->get();
+
+        $unfinished =  Tugas::whereHas('mapel')
+            ->whereDoesntHave('jawaban', function (Builder $query) use ($id_siswa) {
+                $query->where('id_siswa', '=', $id_siswa);
+            })
+            ->whereHas('tingkat', function (Builder $query) use ($tingkat_siswa) {
+                $query->where('id_tingkat', '=', $tingkat_siswa);
+            })->orderBy('id_mapel')->get();
+
+        $id_tugas_finished = [];
+        foreach ($finished as $tugas) {
+            $id_tugas_finished[] = $tugas->id;
+        }
+
+        $id_tugas_unfinished = [];
+        foreach ($unfinished as $tugas) {
+            $id_tugas_unfinished[] = $tugas->id;
+        }
+
+        return view('siswa-admin.tugas', compact(['all', 'finished', 'unfinished', 'id_tugas_finished', 'id_tugas_unfinished',  'mapel_finished', 'mapel_unfinished', 'tingkat_siswa', 'nama_siswa']));
     }
 
     /**

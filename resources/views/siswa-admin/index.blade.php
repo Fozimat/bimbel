@@ -45,7 +45,8 @@
                                 @foreach ($siswa as $s)
                                 <tr>
                                     <td style="width: 10px;">{{ $no++ }}</td>
-                                    <td>{{ $s->nama }}</td>
+                                    <td><a href="{{ route('admin-jawaban-siswa', $s->id) }}" class="">{{ $s->nama }}</a>
+                                    </td>
                                     <td>{{ $s->email }}</td>
                                     <td>{{ $s->tingkat->tingkat}}</td>
                                     <td style="width: 150px;"><a href="{{ route('siswa.edit', $s->id) }}"
