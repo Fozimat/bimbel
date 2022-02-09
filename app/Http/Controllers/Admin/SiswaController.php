@@ -34,13 +34,12 @@ class SiswaController extends Controller
         })->get();
 
         $tingkat_siswa = User::find($id_siswa)->tingkat->id;
-        // dd($tingkat_siswa);
+        $id_siswa = User::find($id_siswa)->id;
         $nama_siswa = User::find($id_siswa)->nama;
 
         $all =  Tugas::whereHas('mapel', function (Builder $query) use ($tingkat_siswa) {
             $query->where('id_tingkat', '=', $tingkat_siswa);
         })->groupBy('id_mapel')->get();
-        // dd($all);
 
         $finished =  Tugas::whereHas('mapel')
             ->whereHas('jawaban', function (Builder $query) use ($id_siswa) {
@@ -68,7 +67,7 @@ class SiswaController extends Controller
             $id_tugas_unfinished[] = $tugas->id;
         }
 
-        return view('siswa-admin.tugas', compact(['all', 'finished', 'unfinished', 'id_tugas_finished', 'id_tugas_unfinished',  'mapel_finished', 'mapel_unfinished', 'tingkat_siswa', 'nama_siswa']));
+        return view('siswa-admin.tugas', compact(['all', 'finished', 'unfinished', 'id_tugas_finished', 'id_tugas_unfinished',  'mapel_finished', 'mapel_unfinished', 'tingkat_siswa', 'nama_siswa', 'id_siswa']));
     }
 
     /**

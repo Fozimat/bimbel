@@ -16,17 +16,30 @@
                 <div class="body">
                     <div class="row clearfix">
                         <div class="col-sm-12">
-                            <h3>Jawaban</h3>
+                            {{-- <h3>Jawaban</h3>
                             <p class="m-t-15 m-b-20">
                                 {!! $jawaban[0]->jawaban !!}
-                            </p>
+                            </p> --}}
+                            <div class="form-group">
+                                <div class="form-line disabled">
+                                    <label for="jawaban">JAWABAN</label>
+                                    <textarea id="ckeditor" disabled="disabled" name="jawaban">{!! $jawaban[0]->jawaban
+                                        !!}</textarea>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
 @endsection
+
+@push('script')
+<!-- Ckeditor -->
+<script src="{{ asset('assets/plugins/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ asset('assets/js/pages/forms/editors.js') }}"></script>
+
+@endpush

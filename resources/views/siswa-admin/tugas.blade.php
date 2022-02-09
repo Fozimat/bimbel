@@ -49,6 +49,7 @@
                                             <th>No</th>
                                             <th>Tugas</th>
                                             <th>Mapel</th>
+                                            <th>Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +61,9 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $f->judul }}</td>
                                             <td>{{ $f->mapel->nama_mapel}}</td>
+                                            <td><a href=" {{ route('detail-jawaban-siswa', ['siswa'=> $id_siswa, 'tgs'
+                                                => $f->id]) }}" class=" btn bg-cyan waves-effect">Lihat Jawaban</a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
