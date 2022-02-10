@@ -5,20 +5,16 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Kusuma Bimbel</title>
+    <title>KUSUMA_ILM</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{ asset('assets-frontend/img/logo.png') }}" rel="icon">
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
     <link href="{{ asset('assets-frontend/vendor/animate.css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-frontend/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -27,36 +23,29 @@
     <link href="{{ asset('assets-frontend/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('assets-frontend/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
     <link href="{{ asset('assets-frontend/css/style.css') }}" rel="stylesheet">
-
-    <!-- =======================================================
-  * Template Name: Mentor - v4.6.0
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <style>
+        html {
+            scroll-padding-top: 170px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ======= Header ======= -->
     <header id="header" class="fixed-top">
         <div class="container d-flex align-items-center">
-
-            <h1 class="logo me-auto"><a href="index.html">Kusuma</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-            <nav id="navbar" class="navbar order-last order-lg-0">
+            <a href="index.html" class="logo"><img src="{{ asset('assets-frontend/img/logo.jpg') }}" alt=""
+                    class="img-fluid" style="margin-right: 10px;margin-top: -10px;"></a>
+            <h1 class="logo me-auto"><a href="#">Kusuma_ILM</a></h1>
+            <nav id=" navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="active" href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
+            </nav>
             @auth
             <a href="{{ route('login') }}" class="get-started-btn">Home</a>
             @else
@@ -65,23 +54,25 @@
             @endauth
 
         </div>
-    </header><!-- End Header -->
+    </header>
 
-    <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex justify-content-center align-items-center">
         <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
-            <h1>Learning Today,<br>Leading Tomorrow</h1>
-            <h2>We are team of talented designers making websites with Bootstrap</h2>
-            <a href="courses.html" class="btn-get-started">Get Started</a>
+            <h1>Pengajaran menarik dan<br>unik bagi pelajar untuk belajar</h1>
+            <h2>Kusuma merupakan salah satu tempat bimbingan belajar terbaik di Tanjungpinang</h2>
+            <a href="#contact" class="btn-get-started">Get Started</a>
         </div>
-    </section><!-- End Hero -->
+    </section>
 
     <main id="main">
+        <div class="breadcrumbs" data-aos="fade-in">
+            <div class="container">
+                <h2>About Us</h2>
+            </div>
+        </div>
 
-        <!-- ======= About Section ======= -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up">
-
                 <div class="row">
                     <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
                         <img src="{{ asset('assets-frontend/img/about.jpg') }}" class="img-fluid" alt="">
@@ -111,13 +102,12 @@
                 </div>
 
             </div>
-        </section><!-- End About Section -->
+        </section>
 
-        <!-- ======= Counts Section ======= -->
         <section id="counts" class="counts section-bg">
             <div class="container">
 
-                <div class="row counters">
+                {{-- <div class="row counters">
 
                     <div class="col-lg-3 col-6 text-center">
                         <span data-purecounter-start="0" data-purecounter-end="1232" data-purecounter-duration="1"
@@ -143,12 +133,14 @@
                         <p>Trainers</p>
                     </div>
 
+                </div> --}}
+                <div class="col-lg-12">
+                    <h2 class="text-center font-weight-bold">More info about us! Check on our instagram</h2>
                 </div>
 
             </div>
-        </section><!-- End Counts Section -->
+        </section>
 
-        <!-- ======= Why Us Section ======= -->
         <section id="why-us" class="why-us">
             <div class="container" data-aos="fade-up">
 
@@ -195,16 +187,63 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End .content-->
+                        </div>
                     </div>
                 </div>
 
             </div>
-        </section><!-- End Why Us Section -->
+        </section>
 
-    </main><!-- End #main -->
+        <div class="breadcrumbs" data-aos="fade-in">
+            <div class="container">
+                <h2>Contact Us</h2>
+            </div>
+        </div>
 
-    <!-- ======= Footer ======= -->
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+                <div class="row mt-5">
+                    <div class="col-lg-4">
+                        <div class="info">
+                            <div class="address">
+                                <i class="bi bi-geo-alt"></i>
+                                <h4>Location:</h4>
+                                <p>Jalan Potong Lembu No.1 Tanjungpinang, 29122</p>
+                            </div>
+
+                            <div class="email">
+                                <i class="bi bi-envelope"></i>
+                                <h4>Email:</h4>
+                                <p>info@example.com</p>
+                            </div>
+
+                            <div class="phone">
+                                <i class="bi bi-phone"></i>
+                                <h4>Call:</h4>
+                                <p>+628 127 072 452</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-8 mt-5 mt-lg-0">
+
+                        <div data-aos="fade-up">
+                            <iframe style="border:0; width: 100%; height: 350px;"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.2952615364643!2d104.4501813!3d0.9277715999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d973ab5481979d%3A0x97c4b55e329e0c0d!2sKUSUMA_ILM!5e0!3m2!1sid!2sid!4v1644481921569!5m2!1sid!2sid"
+                                frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
     <footer id="footer">
 
         <div class="container d-md-flex py-4">
@@ -216,20 +255,16 @@
 
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="youtube"><i class="bx bxl-youtube"></i></a>
                 <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
             </div>
         </div>
-    </footer><!-- End Footer -->
+    </footer>
 
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
     <script src="{{ asset('assets-frontend/vendor/aos/aos.js') }}"></script>
     <script src="{{ asset('assets-frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}">
     </script>
@@ -240,7 +275,6 @@
     <script src="{{ asset('assets-frontend/vendor/swiper/swiper-bundle.min.js') }}">
     </script>
 
-    <!-- Template Main JS File -->
     <script src="{{ asset('assets-frontend/js/main.js') }}"></script>
 
 </body>

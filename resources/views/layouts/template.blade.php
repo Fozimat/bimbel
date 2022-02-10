@@ -64,7 +64,9 @@
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="#">KUSUMA</a>
+                <a href="#" class="navbar-brand"><img src="{{ asset('assets-frontend/img/logo.png') }}" alt=""
+                        style="width: 40px;margin-top: -10px;"></a>
+                <a class="navbar-brand" href="#">KUSUMA_ILM</a>
             </div>
         </div>
     </nav>
