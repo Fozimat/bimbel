@@ -61,6 +61,50 @@
         </div>
     </div>
     <!-- #END# Widgets -->
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header bg-blue-grey">
+                    <h2>
+                        STATUS SISWA
+                    </h2>
 
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-hover dashboard-task-infos">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Last Seen</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->nama }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>
+                                        @if(Cache::has('user-is-online-' . $user->id))
+                                        <span class="badge bg-green">Online</span>
+                                        @else
+                                        <span class="badge bg-grey">Offline</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($user->last_seen)->diffForHumans() }}</td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
