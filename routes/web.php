@@ -36,7 +36,9 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('mapel', MapelController::class);
     Route::get('tingkat/laporan', [TingkatController::class, 'tingkatPDF'])->name('tingkat.pdf');
     Route::resource('tingkat', TingkatController::class);
+    Route::get('materi/laporan', [MateriController::class, 'materiPDF'])->name('materi.pdf');
     Route::resource('materi', MateriController::class);
+    Route::get('tugas/laporan', [TugasController::class, 'tugasPDF'])->name('tugas.pdf');
     Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
     Route::resource('jawaban', JawabanController::class);
     Route::get('jawaban/tingkat/{id}', [JawabanController::class, 'tingkat'])->name('jawaban-tingkat');

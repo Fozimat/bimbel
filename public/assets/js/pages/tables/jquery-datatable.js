@@ -7,9 +7,6 @@ $(function () {
     $('.js-exportable').DataTable({
         dom: 'Bfrtip',
         responsive: true,
-        buttons: [
-            { extend: 'pdf', className: 'btn bg-purple waves-effect' },
-        ],
         "columnDefs": [
             { "width": "5%", "targets": 0 }
         ]
@@ -18,9 +15,6 @@ $(function () {
     $('.tugas-nowrap').DataTable({
         dom: 'Bfrtip',
         responsive: true,
-        buttons: [
-            { extend: 'pdf', className: 'btn bg-purple waves-effect' },
-        ],
         columnDefs: [{
             targets: [6],
             render: function (data, type, row) {
@@ -34,9 +28,6 @@ $(function () {
     $('.materi-nowrap').DataTable({
         dom: 'Bfrtip',
         responsive: true,
-        buttons: [
-            { extend: 'pdf', className: 'btn bg-purple waves-effect' },
-        ],
         columnDefs: [{
             targets: [5],
             render: function (data, type, row) {

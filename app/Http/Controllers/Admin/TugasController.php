@@ -8,6 +8,7 @@ use App\Models\Tingkat;
 use App\Http\Requests\TugasRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TugasController extends Controller
 {
@@ -20,6 +21,13 @@ class TugasController extends Controller
     {
         $tugas = Tugas::with('mapel', 'tingkat')->orderBy('created_at', 'DESC')->get();
         return view('tugas.index', compact(['tugas']));
+    }
+
+    public function tugasPDF()
+    {
+        $tugas = Tugas::with('mapel', 'tingkat')->orderBy('created_at', 'DESC')->get();
+        $pdf = PDF::loadview('tugas.laporan', compact(['tugas']))->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     /**

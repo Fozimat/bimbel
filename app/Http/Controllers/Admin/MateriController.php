@@ -8,6 +8,7 @@ use App\Models\Tingkat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MateriRequest;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MateriController extends Controller
 {
@@ -20,6 +21,13 @@ class MateriController extends Controller
     {
         $materi = Materi::with('mapel', 'tingkat')->get();
         return view('materi.index', compact(['materi']));
+    }
+
+    public function materiPDF()
+    {
+        $materi = Materi::with('mapel', 'tingkat')->get();
+        $pdf = PDF::loadview('materi.laporan', compact(['materi']))->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     /**
