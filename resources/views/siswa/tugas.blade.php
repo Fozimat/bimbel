@@ -49,24 +49,23 @@
                                         {{ $m->judul }} <small>{{ $m->created_at->isoFormat('dddd, D MMMM Y, HH:mm')
                                             }}</small>
                                     </h2>
-                                    @php
+                                    {{-- @php
                                     $id_siswa = json_decode($mapel->jawaban->where('id_tugas',
                                     $m->id)->where('id_siswa', '=',
                                     Auth::user()->id)->pluck('id'));
-                                    @endphp
+                                    @endphp --}}
                                 </div>
                                 <div class="body">
                                     <a href="{{ asset('tugas/'.$m->tugas) }}"
                                         class="btn bg-pink waves-effect m-r-10">Download
                                         Tugas</a>
-                                    @if (in_array($m->id, $id_tugas_finished))
+                                    {{-- @if (in_array($m->id, $id_tugas_finished))
                                     <a href="{{ route('tugassiswa.ubah', ['jawaban' =>  implode(' ', $id_siswa), 'tugas' => $m->id]) }}"
                                         class="btn bg-indigo waves-effect">Edit Tugas</a>
                                     @else
                                     <a href="{{ route('tugassiswa.edit', $m->id) }}"
                                         class="btn bg-teal waves-effect">Kumpulkan Tugas</a>
-                                    @endif
-
+                                    @endif --}}
                                     <span class="pull-right m-t-5 font-bold">Batas Pengumpulan: {{
                                         $m->batas_pengantaran->isoFormat('dddd, D MMMM Y,
                                         HH:mm')

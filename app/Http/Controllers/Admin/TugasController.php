@@ -18,7 +18,7 @@ class TugasController extends Controller
      */
     public function index()
     {
-        $tugas = Tugas::with('mapel', 'tingkat')->get();
+        $tugas = Tugas::with('mapel', 'tingkat')->orderBy('created_at', 'DESC')->get();
         return view('tugas.index', compact(['tugas']));
     }
 
