@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TingkatRequest;
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class TingkatController extends Controller
 {
@@ -18,6 +19,13 @@ class TingkatController extends Controller
     {
         $tingkat = Tingkat::all();
         return view('tingkat.index', compact(['tingkat']));
+    }
+
+    public function tingkatPDF()
+    {
+        $tingkat = Tingkat::all();
+        $pdf = PDF::loadview('tingkat.laporan', compact(['tingkat']))->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     /**

@@ -27,7 +27,9 @@
                 </div>
                 <div class="body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <a target="_blank" href="{{ route('mapel.pdf') }}"
+                                class="btn bg-purple waves-effect">PDF</a>
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -42,7 +44,7 @@
                                 @endphp
                                 @foreach ($mata_pelajaran as $mapel)
                                 <tr>
-                                    <td style="width: 10px;">{{ $no++ }}</td>
+                                    <td style=" width: 10px;">{{ $no++ }}</td>
                                     <td>{{ $mapel->nama_mapel }}</td>
                                     <td style="width: 150px;"><a href="{{ route('mapel.edit', $mapel->id) }}"
                                             class="btn btn-primary">edit</a> |

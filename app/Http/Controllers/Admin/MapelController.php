@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MapelRequest;
 use App\Models\Mapel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class MapelController extends Controller
 {
@@ -18,6 +19,13 @@ class MapelController extends Controller
     {
         $mata_pelajaran = Mapel::all();
         return view('mapel.index', compact(['mata_pelajaran']));
+    }
+
+    public function mapelPDF()
+    {
+        $mata_pelajaran = Mapel::all();
+        $pdf = PDF::loadview('mapel.laporan', compact(['mata_pelajaran']))->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     /**

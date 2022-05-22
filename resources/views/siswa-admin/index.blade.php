@@ -28,7 +28,8 @@
                 <div class="body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover dataTable">
-                            <a target="_blank" href="{{ route('siswa.pdf') }}" class="btn btn-success">Cetak</a>
+                            <a target="_blank" href="{{ route('siswa.pdf') }}"
+                                class="btn bg-purple waves-effect">PDF</a>
                             <thead>
                                 <tr>
                                     <th>No</th>
