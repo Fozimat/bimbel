@@ -30,6 +30,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/', [DashboardAdminController::class, 'index'])->name('dashboard');
+    Route::get('siswa/laporan', [SiswaController::class, 'siswaPDF'])->name('siswa.pdf');
     Route::resource('siswa', SiswaController::class);
     Route::resource('mapel', MapelController::class);
     Route::resource('tingkat', TingkatController::class);

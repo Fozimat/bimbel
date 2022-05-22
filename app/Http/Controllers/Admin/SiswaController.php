@@ -9,6 +9,7 @@ use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class SiswaController extends Controller
 {
@@ -21,6 +22,13 @@ class SiswaController extends Controller
     {
         $siswa = User::with('tingkat')->where('role', 'siswa')->get();
         return view('siswa-admin.index', compact(['siswa']));
+    }
+
+    public function siswaPDF()
+    {
+        $siswa = User::with('tingkat')->where('role', 'siswa')->get();
+        $pdf = PDF::loadview('siswa-admin.laporan', compact(['siswa']))->setPaper('a4', 'portrait');
+        return $pdf->stream();
     }
 
     public function jawaban($id_siswa)
