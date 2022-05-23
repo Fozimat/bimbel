@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Mapel;
 use App\Models\Tugas;
+use App\Models\Jawaban;
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
-use Barryvdh\DomPDF\Facade as PDF;
 
 class SiswaController extends Controller
 {
@@ -150,5 +151,11 @@ class SiswaController extends Controller
     {
         $siswa->delete();
         return redirect()->route('siswa.index')->with('flash', 'Siswa Berhasil Dihapus');
+    }
+
+    public function destroy_jawaban(Jawaban $jawaban, $id_siswa)
+    {
+        $jawaban->delete();
+        return redirect()->route('admin-jawaban-siswa', $id_siswa)->with('flash', 'Jawaban Berhasil Dihapus');
     }
 }

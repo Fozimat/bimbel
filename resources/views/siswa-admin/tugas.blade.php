@@ -63,6 +63,13 @@
                                             <td>{{ $f->mapel->nama_mapel}}</td>
                                             <td><a href=" {{ route('detail-jawaban-siswa', ['siswa'=> $id_siswa, 'tgs'
                                                 => $f->id]) }}" class=" btn bg-cyan waves-effect">Lihat Jawaban</a>
+                                                <form style="display: inline" method="POST"
+                                                    action="{{ route('hapus.jawaban', ['jawaban' => $f->jawaban->id, 'id_siswa' => $id_siswa]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button onclick="return confirm('Apakah anda yakin?')" type="submit"
+                                                        class="btn btn-danger">Hapus Jawaban</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
