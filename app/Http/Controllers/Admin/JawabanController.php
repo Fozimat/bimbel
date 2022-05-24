@@ -38,7 +38,10 @@ class JawabanController extends Controller
             $query->where('id_tingkat', '=', $id);
         })->get();
 
-        $tugas =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->get();
+        $tugas =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->get();
+
+        $id_tingkat =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->first();
+
 
         $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
             $query->where('id_tugas', '=', $tgs);
@@ -53,8 +56,9 @@ class JawabanController extends Controller
         }
         $res = call_user_func_array('array_merge', $data);
         $json = json_encode($res);
+        // dd();
 
-        return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran']));
+        return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran', 'id_tingkat']))->with('flash', 'Jawaban Berhasil Dihapus');
     }
 
     public function jawaban($siswa, $tgs)
@@ -124,4 +128,10 @@ class JawabanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function destroy_jawaban($tingkat, $tgs, $jawaban)
+    {
+        Jawaban::findOrFail($jawaban)->delete();
+        return redirect()->route('jawaban-siswa', ['tgs' => $tgs, 'id' => $tingkat])->with('flash', 'Jawaban Berhasil Dihapus');
+    }
 }

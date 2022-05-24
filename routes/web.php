@@ -43,6 +43,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::delete('siswa/jawaban/{jawaban}/{id_siswa}', [SiswaController::class, 'destroy_jawaban'])->name('hapus.jawaban');
     Route::resource('jawaban', JawabanController::class)->except(['destroy']);
     Route::get('jawaban/tingkat/{id}', [JawabanController::class, 'tingkat'])->name('jawaban-tingkat');
+    Route::delete('jawaban/tingkat/{tingkat}/tugas/{tgs}/jawaban/{jawaban}', [JawabanController::class, 'destroy_jawaban'])->name('hapus.jawaban.tingkat');
     Route::get('jawaban/tingkat/{id}/tugas/{tgs}', [JawabanController::class, 'tugas'])->name('jawaban-siswa');
     Route::get('jawaban/{siswa}/tugas/{tgs}', [JawabanController::class, 'jawaban'])->name('detail-jawaban-siswa');
     Route::get('siswa/jawaban/{id_siswa}', [SiswaController::class, 'jawaban'])->name('admin-jawaban-siswa');

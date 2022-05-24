@@ -11,7 +11,13 @@
         <h2> {{ $tugas[0]->judul }}
         </h2>
     </div>
-
+    @if (session('flash'))
+    <div class="alert bg-green alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        {{ session('flash') }}
+    </div>
+    @endif
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
@@ -64,7 +70,16 @@
                                                 '<a class="btn btn-success waves-effect"">oke</a>' !!} </td>
                                                 <td><a href=" {{ route('detail-jawaban-siswa', ['siswa'=> $f->id, 'tgs'
                                                     => $tugas[0]->id]) }}"
-                                                    class=" btn bg-cyan waves-effect">Lihat Jawaban</a></td>
+                                                    class=" btn bg-cyan waves-effect">Lihat Jawaban</a>
+                                                <form style="display: inline" method="POST"
+                                                    action="{{ route('hapus.jawaban.tingkat', ['tingkat' => $id_tingkat->tingkat->id, 'tgs' => $tugas[0]->id, 'jawaban' => $finished[0]->jawaban[$key]->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button onclick="return confirm('Apakah anda yakin?')" type="submit"
+                                                        class="btn btn-danger">Hapus Jawaban</button>
+                                                </form>
+                                            </td>
+
                                         </tr>
                                         @endforeach
                                     </tbody>
