@@ -93,6 +93,12 @@ class MapelController extends Controller
      */
     public function destroy(Mapel $mapel)
     {
+        $relasi = ['tugas', 'materi', 'jawaban'];
+        foreach ($relasi as $rel) {
+            if ($mapel->$rel()->count() > 0) {
+                return redirect()->route('mapel.index')->with('flash', 'Mapel gagal dihapus. Mapel digunakan ditabel lain.');
+            }
+        }
         $mapel->delete();
         return redirect()->route('mapel.index')->with('flash', 'Mata Pelajaran Berhasil Dihapus');
     }

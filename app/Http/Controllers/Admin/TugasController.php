@@ -131,6 +131,12 @@ class TugasController extends Controller
      */
     public function destroy(Tugas $tugas)
     {
+        $relasi = ['jawaban'];
+        foreach ($relasi as $rel) {
+            if ($tugas->$rel()->count() > 0) {
+                return redirect()->route('tugas.index')->with('flash', 'Tugas gagal dihapus. Tugas digunakan ditabel lain.');
+            }
+        }
         $path = public_path('tugas/' . $tugas->tugas);
         if (File::exists($path)) {
             unlink($path);

@@ -149,6 +149,7 @@ class SiswaController extends Controller
      */
     public function destroy(User $siswa)
     {
+        $siswa->jawaban()->delete();
         $siswa->delete();
         return redirect()->route('siswa.index')->with('flash', 'Siswa Berhasil Dihapus');
     }

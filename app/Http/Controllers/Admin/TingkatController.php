@@ -93,6 +93,12 @@ class TingkatController extends Controller
      */
     public function destroy(Tingkat $tingkat)
     {
+        $relasi = ['materi', 'tugas'];
+        foreach ($relasi as $rel) {
+            if ($tingkat->$rel()->count() > 0) {
+                return redirect()->route('tingkat.index')->with('flash', 'Tingkat gagal dihapus. Tingkat digunakan ditabel lain.');
+            }
+        }
         $tingkat->delete();
         return redirect()->route('tingkat.index')->with('flash', 'Tingkat Berhasil Dihapus');
     }
