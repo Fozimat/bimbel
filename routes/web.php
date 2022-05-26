@@ -41,6 +41,7 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('tugas/laporan', [TugasController::class, 'tugasPDF'])->name('tugas.pdf');
     Route::resource('tugas', TugasController::class)->parameters(['tugas' => 'tugas']);
     Route::delete('siswa/jawaban/{jawaban}/{id_siswa}', [SiswaController::class, 'destroy_jawaban'])->name('hapus.jawaban');
+    Route::get('jawaban/tingkat/{id}/tugas/{tgs}/laporan', [JawabanController::class, 'jawabanPDF'])->name('jawaban.pdf');
     Route::resource('jawaban', JawabanController::class)->except(['destroy']);
     Route::get('jawaban/tingkat/{id}', [JawabanController::class, 'tingkat'])->name('jawaban-tingkat');
     Route::delete('jawaban/tingkat/{tingkat}/tugas/{tgs}/jawaban/{jawaban}', [JawabanController::class, 'destroy_jawaban'])->name('hapus.jawaban.tingkat');

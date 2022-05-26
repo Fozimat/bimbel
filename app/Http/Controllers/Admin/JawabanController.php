@@ -9,6 +9,7 @@ use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class JawabanController extends Controller
 {
@@ -28,6 +29,37 @@ class JawabanController extends Controller
     {
         $tugas =  Tugas::where('id_tingkat', '=', $id)->orderBy('id_mapel')->get();
         return view('jawaban.tingkat', compact(['tugas']));
+    }
+
+    public function jawabanPDF($id, $tgs)
+    {
+        $finished = User::whereHas('jawaban', function (Builder $query) use ($tgs) {
+            $query->where('id_tugas', '=', $tgs);
+        })->whereHas('tingkat', function (Builder $query) use ($id) {
+            $query->where('id_tingkat', '=', $id);
+        })->get();
+
+        $tugas =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->get();
+
+        $id_tingkat =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->first();
+
+
+        $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
+            $query->where('id_tugas', '=', $tgs);
+        })->whereHas('tingkat', function (Builder $query) use ($id) {
+            $query->where('id_tingkat', '=', $id);
+        })->get();
+
+        $batas_pengantaran =  Tugas::where('id_tingkat', '=', $id)->where('id', '=', $tgs)->pluck('batas_pengantaran');
+        $data = [];
+        foreach ($finished as $f) {
+            $data[] = $f->jawaban->where('id_tugas', '=', $tgs)->toArray();
+        }
+        $res = call_user_func_array('array_merge', $data);
+        $json = json_encode($res);
+
+        $pdf = PDF::loadview('jawaban.laporan', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran', 'id_tingkat']));
+        return $pdf->stream();
     }
 
     public function tugas($id, $tgs)
@@ -56,7 +88,6 @@ class JawabanController extends Controller
         }
         $res = call_user_func_array('array_merge', $data);
         $json = json_encode($res);
-        // dd();
 
         return view('jawaban.tugas', compact(['finished', 'unfinished', 'tugas', 'res', 'batas_pengantaran', 'id_tingkat']))->with('flash', 'Jawaban Berhasil Dihapus');
     }
