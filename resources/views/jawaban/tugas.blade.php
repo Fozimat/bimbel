@@ -46,7 +46,9 @@
                         <div role="tabpanel" class="tab-pane fade in active" id="finished">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                    <a target="_blank" href="#" class="btn bg-purple waves-effect">PDF</a>
+                                    <a target="_blank"
+                                        href="{{ route('jawaban.pdf', ['id' => $id_tingkat->id_tingkat, 'tgs' => $tugas[0]->id]) }}"
+                                        class="btn bg-purple waves-effect">PDF</a>
                                     <thead>
                                         <tr>
                                             <th>No</th>

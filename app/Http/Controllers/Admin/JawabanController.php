@@ -43,7 +43,6 @@ class JawabanController extends Controller
 
         $id_tingkat =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->first();
 
-
         $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
             $query->where('id_tugas', '=', $tgs);
         })->whereHas('tingkat', function (Builder $query) use ($id) {
@@ -73,8 +72,8 @@ class JawabanController extends Controller
         $tugas =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->get();
 
         $id_tingkat =  Tugas::with(['tingkat'])->where('id_tingkat', '=', $id)->where('id', '=', $tgs)->first();
-
-
+        // dd($id_tingkat->id_tingkat);
+        // dd($tugas[0]->id);
         $unfinished = User::whereDoesntHave('jawaban', function (Builder $query) use ($tgs) {
             $query->where('id_tugas', '=', $tgs);
         })->whereHas('tingkat', function (Builder $query) use ($id) {

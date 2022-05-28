@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laporan Daftar Materi</title>
+    <title>Laporan Daftar Jawaban</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
@@ -25,17 +25,16 @@
     </div>
     <hr style="border: 1px solid rgba(0, 0, 0, 0.5);">
     <center>
-        <h5>Laporan Daftar Materi</h4>
+        <h5>Laporan Daftar Jawaban {{ $tugas[0]->judul }}</h4>
     </center>
 
     <table class='table table-bordered mt-4'>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Mapel</th>
-                <th>Tingkat</th>
-                <th>Judul</th>
-                <th>Keterangan</th>
+                <th>Nama Siswa</th>
+                <th>Waktu Pengantaran</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -44,9 +43,14 @@
             @endphp
             @foreach ($finished as $key => $f)
             <tr>
-
-            </tr>
-            @endforeach
+                <td>{{ $no++ }}</td>
+                <td>{{ $f->nama }}</td>
+                <td>{{ date('d/m/Y - H:i', strtotime($res[$key]['created_at'])) }}</td>
+                <td>{!! strtotime($res[$key]['created_at']) >=
+                    strtotime($batas_pengantaran[0]) ? '<a class="btn bg-red waves-effect">telat</a>' :
+                    '<a class="btn btn-success waves-effect"">oke</a>' !!} </td>
+             </tr>
+             @endforeach
         </tbody>
     </table>
 
